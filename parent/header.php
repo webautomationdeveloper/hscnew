@@ -78,7 +78,7 @@ nav.navbar.navbar-expand-lg.navbar-light.d-flex.justify-content-between {
 
 .nav2
 {
-  margin-left: 29%;
+ justify-content: center;
 }
 .dropbtn {
   background:none;
@@ -123,7 +123,7 @@ nav.navbar.navbar-expand-lg.navbar-light.d-flex.justify-content-between {
 
 
 nav.navbar.navbar-expand-lg.navbar-light.d-flex.justify-content-between {
-    margin-bottom: -3%;
+    /*margin-bottom: -3%;*/
     text-align: center;
 }
 
@@ -183,13 +183,14 @@ nav.navbar.navbar-expand-lg.navbar-light.d-flex.justify-content-between {
 .show {display: block;}
 
 
-
-
 nav.navbar.navbar-expand-lg.navbar-light.d-flex.justify-content-between {
-    margin-bottom: -1%;
+    /*margin-bottom: -1%;*/
     text-align: center;
 }
+.username{
+  margin-top:110px;
 
+}
 
 </style>
 <script>
@@ -231,7 +232,7 @@ function filterFunction() {
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 
-                <div class="collapse navbar-collapse mt-5 nav1" id="navbarNav">
+                <div class="collapse navbar-collapse mt-3 nav1" id="navbarNav">
                    
                     <ul class="navbar-nav">
                       <li class="nav-item active navMenu">
@@ -247,7 +248,19 @@ function filterFunction() {
                 </div>
 
                 <div class ="mt-5 d-flex justify-content-end">
-                <?php //echo $_SESSION["tutor"]?>
+                <div class="mx-4 mt-2">
+                  <?php 
+                  if(isset($_SESSION['tutor'])){
+                   echo $_SESSION["tutor"];
+                  }else if(isset($_SESSION['parent'])){
+                    echo $_SESSION['parent'];
+                  }else if(isset($_SESSION['admin'])){
+                    echo $_SESSION['admin'];
+                  }
+                  
+                  
+                  ?>
+                </div>
                   <a href="http://localhost/hscnew/logout.php" class="btn btn-info btn-lg">
                     <span class="glyphicon glyphicon-log-out"></span> Log out
                   </a>
@@ -255,8 +268,12 @@ function filterFunction() {
                
               </nav>
 
-
               <nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-between">
+                <div class="username mx-4">
+                  <?php if(isset($_REQUEST['uname'])){
+                    echo "Student Name : ".$_REQUEST['uname'];
+                  }?>
+                </div>
                   <div class="collapse navbar-collapse nav2">
                       <ul class="navbar-nav">
                        <?php if(isset($_REQUEST['id'])){

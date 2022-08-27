@@ -1,3 +1,4 @@
+
 <?php 
 // session_start();
 
@@ -10,13 +11,16 @@ $dashBoard = $obj->dashboardData($currentUser,"4");
 
 
 $obj= new Readactions();
+
 $syllabustracker = $obj->syllabusTracker();
-$syllabusResponse = $obj->readUserReaponse($_SESSION['UserID'],'4',"9");
+$userResponse = $obj->readUserReaponse($_SESSION['UserID'],'4');
 
 
 //essaytrackerdraftcompletedata
 $obj1 = new Dashboard();
-$essaytrakdrafcompl = $obj1->essaytrackerdraftcompletedata($_SESSION['UserID'],'2',"9");
+$essaytrakdrafcompl = $obj1->essaytrackerdraftcompletedata();
+
+
 ?>
 
 
@@ -224,77 +228,40 @@ $essaytrakdrafcompl = $obj1->essaytrackerdraftcompletedata($_SESSION['UserID'],'
   $(document).ready(function(){
     let goalData = <?php echo json_encode($goalData); ?>;
     let dashboardData = <?php echo json_encode($dashBoard); ?>;
-    let essayTrackerData = <?php echo json_encode($essaytrakdrafcompl); ?>;
-   
-    
-    drawGraph([0,0,0,0],0,"myChart");
-    essayTrackerTable(essayTrackerData);
+  
+        drawGraph([0,0,0,0],0,"myChart");
+        drawGraph([0,0,0,0],0,"myChart2");
 
     let syllabusTracker = <?php echo json_encode($syllabustracker);?>;
-    let syllabusResponse = <?php echo json_encode($syllabusResponse); ?>;
     syllabusTrackerTable(syllabusTracker);
-    assigninSyllabus(syllabusResponse);
-    
 
     assignGoalData(goalData);
-    assignSyllabusData(dashboardData);
+    assignSyllabusData(dashboardData);;
 
   })
-
-function essayTrackerTable(essayTrackerData){
-  
-    let essayWriting=0;
-    let intialMark=[];
-    let updatedMark=[];
-
-    essayTrackerData.forEach(function(item){
-      let res = item.response.split(",");
-         if(res[0]=="true"){
-              essayWriting++;
-          }
-          intialMark.push([+item.Q_ID, +res[2]]);
-          updatedMark.push([+item.Q_ID, +res[4]]);
-          $("#essaywriprog").text(((essayWriting/11)*100).toFixed(2)+"%");
-    })
-
-    
-
-
-    drawEssayGraph(intialMark,updatedMark,"myChart2");
-
-}
-
-
-function assigninSyllabus(syllabusResponse){
-  console.log(syllabusResponse);
-
-  syllabusResponse.forEach(function(item){
-    console.log(item);
-  })
-
-
-}
 
   function syllabusTrackerTable(syllabusTracker){
 
-    console.log(syllabusTracker);
-
     let hrCount=[0,8,10,9,9,2,2,10,9,4,8,15,8,7,7,4,1,10,9,6,12,4,4,6]; // pointer to add horizonatal row in table
+
     let j=1;
     let k=0;
     let i=0;
     syllabusTracker.forEach(function(item){
+      
+      // console.log(item);
       if(hrCount[k]==i){
+
         let tr=`<tr>
-                    <td>${item.part}</td>
-                    <td id="studyNotes${j}"></td>
-                    <td id="saq${j}"></td> 
-                </tr>`;
-                $("#syllabusPart").append(tr);
-                j++;
-                k++;
-                i=0;
-          }
+                 <td>${item.part}</td>
+                 <td id="studyNotes${j}"></td>
+                 <td id="saq${j}"></td> 
+             </tr>`;
+             $("#syllabusPart").append(tr);
+             j++;
+             k++;
+             i=0;
+      }
       i++;
       })
 
@@ -311,22 +278,29 @@ function assigninSyllabus(syllabusResponse){
     assignSyllabusData.forEach(function(item){
   
       let res = (item.response).split(",");
-        if(res[0]){
-          studyNotes++;
-        }
-        if(res[1]=='red'){
+
+      if(res[0]){
+        studyNotes++;
+      }
+
+      if(res[1]=='red'){
             redCount++;
         }
+
         if(res[1]=='orange'){
             orangeCount++;
         }
+
         if(res[1]=='green'){
             greenCount++;
         }
+
         if(res[1]=='green'){
             greenCount++;
         }
+
         if(res[6]==='true')saqCount++;
+
     })
 
     $("#studyNotes").text((studyNotes/165).toFixed(2)*100);
@@ -334,16 +308,26 @@ function assigninSyllabus(syllabusResponse){
     $("#redColor").text((redCount/165).toFixed(2)*100);
     $("#orangeColor").text((orangeCount/165).toFixed(2)*100);
     $("#greenColor").text((greenCount/165).toFixed(2)*100);
+    
+
+
+
+
   }
 
   function assignGoalData(goalData){
+   
+   // console.log(goalData);
+
     let mark1 = goalData.Mark1.split("%")[0];
     let mark2 = goalData.Mark2.split("%")[0];
     let mark3 = goalData.Mark3.split("%")[0];
     let mark4 = goalData.Mark_hsc_trials.split("%")[0];
 
+   // console.log(mark1,mark2,mark3,mark4);
+
     drawGraph([ Math.trunc(mark1), Math.trunc(mark2), Math.trunc(mark3), Math.trunc(mark4)],99,"myChart");
-    // drawGraph([ Math.trunc(mark1), Math.trunc(mark2), Math.trunc(mark3), Math.trunc(mark4)],99,"myChart2");
+    drawGraph([ Math.trunc(mark1), Math.trunc(mark2), Math.trunc(mark3), Math.trunc(mark4)],99,"myChart2");
 
     
 
@@ -354,59 +338,9 @@ function assigninSyllabus(syllabusResponse){
   }
 
 
-function drawEssayGraph(val,markLimit,id){
-
- let dataVal = Array(['Essay','Initial Mark','Updated Mark'],
-                  ['#Essay 1', 0,0],
-                  ['#Essay 2', 0,0],
-                  ['#Essay 3', 0,0],
-                  ['#Essay 4', 0,0],
-                  ['#Essay 5', 0,0],
-                  ['#Essay 6', 0,0],
-                  ['#Essay 7', 0,0],
-                  ['#Essay 8', 0,0],
-                  ['#Essay 9', 0,0],
-                  ['#Essay 10', 0,0],
-                  ['#Essay 11', 0,0], 
-              );
-
- let i=0;
- val.forEach(function(item){
-  dataVal[item[0]][1]=item[1];
-  dataVal[item[0]][2]=markLimit[i][1];
-  i++;
-
- })
-
- dataVal=JSON.stringify(dataVal);
-        google.charts.load('current', {
-            'packages': ['corechart']
-        });
-
-        google.charts.setOnLoadCallback(drawChart);
-
-        google.charts.load('current', {
-            'packages': ['corechart']
-        });
-
-
-        function drawChart() {
-            
-          var data = google.visualization.arrayToDataTable(JSON.parse(dataVal));
-
-            var options = {
-                title: 'Goal Mark vs Actual Assessment Results'
-            };
-
-            var chart = new google.visualization.LineChart(document.getElementById(id));
-            chart.draw(data, options);
-        }
-}
-
-
 
   function drawGraph(val,markLimit,id){
-
+   // console.log(val,markLimit,id);
             google.charts.load('current', {
                 'packages': ['corechart']
             });
@@ -419,8 +353,7 @@ function drawEssayGraph(val,markLimit,id){
 
 
             function drawChart() {
-                
-              var data = google.visualization.arrayToDataTable([
+                var data = google.visualization.arrayToDataTable([
                     ['Contry', 'Mark','Goal'],
                     ['#1', val[0],markLimit],
                     ['#2', val[1],markLimit],
@@ -437,4 +370,13 @@ function drawEssayGraph(val,markLimit,id){
             }
 }
 
+
+
+//essay writing progress values add in td
+let essaywetingprogressdata = <?php echo json_encode($essaytrakdrafcompl); ?>;
+
+essaywetingprogressdata.forEach(function (item)
+{
+  $("#essaywriprog").text(item.draft_completed);
+});
   </script>
