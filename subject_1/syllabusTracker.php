@@ -122,7 +122,7 @@ if (isset($_REQUEST['id'])) {
     let orangeCount = 0;
     let greenCount = 0;
     let totalCount = syllabustracker.length;
-    console.log(totalCount);
+  
     let saqCount = 0;
 
     $(document).ready(function() {
@@ -141,8 +141,9 @@ if (isset($_REQUEST['id'])) {
        <td>${item.syllabus_point}</td>
        <?php if (isset($_SESSION['parent'])) { ?>
        <td><input type="checkbox" onclick="return false" class="onoffswitch-checkbox" id="syllabus${item.Q_ID}_A" onclick="studyNotesProgress('syllabus${item.Q_ID}_A','${sectionVar}')"></td>
+       <input type="hidden" id="currentSecValue${sectionVar}" value="0">
        
-        <td><input type="checkbox" onclick="return false" class="onoffswitch-checkbox" id="syllabus${item.Q_ID}_A" onclick="studyNotesProgress('syllabus${item.Q_ID}_A','${sectionVar}')"></td>
+        <td><input type="checkbox" onclick="return false" class="onoffswitch-checkbox" id="syllabus${item.Q_ID}_B" onclick="studyNotesProgress('syllabus${item.Q_ID}_A','${sectionVar}')"></td>
        
        <td>
 
@@ -156,8 +157,9 @@ if (isset($_REQUEST['id'])) {
        </td>
        <?php } else { ?>
         <td><input type="checkbox"  class="onoffswitch-checkbox" id="syllabus${item.Q_ID}_A" onclick="studyNotesProgress('syllabus${item.Q_ID}_A','${sectionVar}')"></td>
+        <input type="hidden" id="currentSecValue${sectionVar}" value="0">
        
-       <td><input type="checkbox" class="onoffswitch-checkbox" id="syllabus${item.Q_ID}_A" onclick="studyNotesProgress('syllabus${item.Q_ID}_A','${sectionVar}')"></td>
+       <td><input type="checkbox" class="onoffswitch-checkbox" id="syllabus${item.Q_ID}_B" onclick="studyNotesProgress('syllabus${item.Q_ID}_A','${sectionVar}')"></td>
       
       <td>
 
@@ -226,7 +228,6 @@ if (isset($_REQUEST['id'])) {
 
             if (hrCount[i] == j) {
                 let tr = `<tr>
-        <input type="hidden" id="currentSecValue${sectionVar}" value="0">
                     </tr>
                     <tr style="background:yellow";>
                         <td></td>
@@ -253,7 +254,6 @@ if (isset($_REQUEST['id'])) {
             j++;
         })
 
-        console.log(userResponse);
         if (userResponse.length > 0)
             userResponse.forEach(function(item) {
                 let res = (item.response).split(",");
@@ -281,14 +281,15 @@ if (isset($_REQUEST['id'])) {
                 if (res[6] === 'true') saqCount++;
 
                 $("#" + `syllabus${item.Q_ID}_A`).prop('checked', res[0] === 'true');
-                $("#" + `trafficRating${item.Q_ID}`).val(res[1]);
-                $("#" + `mc${item.Q_ID}`).val(res[2]);
-                $("#" + `saq${item.Q_ID}`).val(res[3]);
-                $("#" + `essay${item.Q_ID}`).val(res[4]);
-                $("#" + `priority${item.Q_ID}`).val(res[5]);
-                $("#" + `saqCompletion${item.Q_ID}`).prop('checked', res[6] === 'true');
+                $("#" + `syllabus${item.Q_ID}_B`).prop('checked', res[1] === 'true');
+                $("#" + `trafficRating${item.Q_ID}`).val(res[2]);
+                $("#" + `mc${item.Q_ID}`).val(res[3]);
+                $("#" + `saq${item.Q_ID}`).val(res[4]);
+                $("#" + `essay${item.Q_ID}`).val(res[5]);
+                $("#" + `priority${item.Q_ID}`).val(res[6]);
+                $("#" + `saqCompletion${item.Q_ID}`).prop('checked', res[7] === 'true');
                 saqCounter('saqCompletion' + item.Q_ID);
-                sectionVar = res[7];
+                sectionVar = res[8];
                 studyNotesProgress('syllabus' + item.Q_ID + '_A', sectionVar)
 
             })
@@ -298,7 +299,10 @@ if (isset($_REQUEST['id'])) {
 
 
     function studyNotesProgress(id, sectionVar) {
+        console.log(sectionVar);
         let currentSectionValue = +$("#currentSecValue" + sectionVar).val();
+        console.log(currentSectionValue);
+
         let sectionprogress = 0;
         let hrCount = [8, 10, 9, 9, 2, 2, 10, 9, 4, 8, 15, 8, 7, 7, 4, 1, 10, 9, 6, 12, 4, 4, 6]; // pointer to add horizonatal row in table
 
@@ -322,6 +326,7 @@ if (isset($_REQUEST['id'])) {
             $("#studyCompletionProgresss").text((progresscount / totalCount).toFixed(2) * 100 + "%");
             $("#studyProgressCount").val(progresscount);
         }
+
     }
 
     function saqCounter(id) {
@@ -369,6 +374,7 @@ if (isset($_REQUEST['id'])) {
 
         let id = val.split("|")[0];
         let response = $("#syllabus" + id + '_A').is(':checked') + "," +
+            $("#syllabus" + id + '_B').is(':checked') + "," +
             $("#trafficRating" + id).val() + "," +
             $("#mc" + id).val() + "," +
             $("#saq" + id).val() + "," +
@@ -382,6 +388,7 @@ if (isset($_REQUEST['id'])) {
 
 
     function saveresponse(resp) {
+       
         <?php if(isset($_REQUEST['id'])){ ?>
             let userID = <?php echo json_encode($id);?>;
        <?php } else { ?>
@@ -393,13 +400,13 @@ if (isset($_REQUEST['id'])) {
         response = response + "," + sectionNum;
 
         let res = "qid=" + qid + "&sal_id=" + sal_ID + "&sub_ID=" + sub_id + "&userID=" + userID + "&res=" + response;
-        console.log(res);
+      
         $.ajax({
             type: "POST",
             url: "../subject_1/studentHandler.php",
             data: res,
             success: function(retVal) {
-                console.log(retVal);
+             
                 alert("Record saved Successfully");
             }
         });
