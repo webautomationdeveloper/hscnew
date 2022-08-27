@@ -188,7 +188,7 @@ nav.navbar.navbar-expand-lg.navbar-light.d-flex.justify-content-between {
     text-align: center;
 }
 .username{
-  margin-top:110px;
+  margin-top:120px;
 
 }
 
@@ -268,43 +268,44 @@ function filterFunction() {
                
               </nav>
 
-              <nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-between">
+              <nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-between" style="margin-top: 15px;">
                 <div class="username mx-4">
                   <?php if(isset($_REQUEST['uname'])){
                     echo "Student Name : ".$_REQUEST['uname'];
                   }?>
                 </div>
-                  <div class="collapse navbar-collapse nav2">
+                  <div class="collapse navbar-collapse nav2 mt-3">
                       <ul class="navbar-nav">
                        <?php if(isset($_REQUEST['id'])){
                         $id = $_REQUEST['id'];
+                        $name = $_REQUEST['uname'];
                        }?>
                       
                       <!-- saprate link  -->
                       <?php $_REQUEST["action"];?>
 
                         <li class="nav-item navMenu menu1">
-                            <a class="nav-link" href="index.php?&action=dash&id=<?php echo $id;?>">Hsc Dashboard</a>
+                            <a class="nav-link" href="index.php?&action=dash&id=<?php echo $id;?>&uname=<?= $name;?>">Hsc Dashboard</a>
                         </li>
 
                         <li class="nav-item navMenu menu1">
-                            <a class="nav-link" href="index.php?&action=essay&id=<?php echo $id;?>">Essay Tracker</a>
+                            <a class="nav-link" href="index.php?&action=essay&id=<?php echo $id;?>&uname=<?= $name;?>">Essay Tracker</a>
                         </li>
 
                         <li class="nav-item navMenu menu1">
-                            <a class="nav-link" href="index.php?&action=roadmap&id=<?php echo $id;?>">Roadmap</a>
+                            <a class="nav-link" href="index.php?&action=roadmap&id=<?php echo $id;?>&uname=<?= $name;?>">Roadmap</a>
                         </li>
 
                         <li class="nav-item navMenu menu1">
-                            <a class="nav-link" href="index.php?&action=syllabus&id=<?php echo $id;?>">Syllabus Tracker</a>
+                            <a class="nav-link" href="index.php?&action=syllabus&id=<?php echo $id;?>&uname=<?= $name;?>">Syllabus Tracker</a>
                         </li>
 
                         <li class="nav-item navMenu menu1">
-                            <a class="nav-link" href="index.php?&action=study&id=<?php echo $id;?>">Study Plan</a>
+                            <a class="nav-link" href="index.php?&action=study&id=<?php echo $id;?>&uname=<?= $name;?>">Study Plan</a>
                         </li>
 
                         <li class="nav-item navMenu menu1">
-                            <a class="nav-link" href="index.php?&action=goals&id=<?php echo $id;?>">Goals</a>
+                            <a class="nav-link" href="index.php?&action=goals&id=<?php echo $id;?>&uname=<?= $name;?>">Goals</a>
                         </li>
                         
                       </ul>

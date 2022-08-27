@@ -3,8 +3,7 @@
  $url = "http://localhost/hscnew/admin/";
 ?>
 <style>
-    .app-sidebar .scrollbar-sidebar {
-   
+.app-sidebar .scrollbar-sidebar {
     overflow: scroll !important;
 }
 </style>
@@ -53,7 +52,7 @@
                             <ul class="vertical-nav-menu">
                                 <li class="app-sidebar__heading">Subject</li>
                                 <li>
-                                    <a href="http://localhost/hsc/subject_1_admin/ecoSubjectDesc.php?&form=study">
+                                    <a href="../subject_1_admin/ecoSubjectDesc.php?&form=study">
                                         <i class="metismenu-icon pe-7s-notebook"></i>
                                         Economics
                                     </a>
