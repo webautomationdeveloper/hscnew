@@ -123,7 +123,7 @@ nav.navbar.navbar-expand-lg.navbar-light.d-flex.justify-content-between {
 
 
 nav.navbar.navbar-expand-lg.navbar-light.d-flex.justify-content-between {
-    margin-bottom: -3%;
+    /*margin-bottom: -3%;*/
     text-align: center;
 }
 
@@ -186,6 +186,10 @@ nav.navbar.navbar-expand-lg.navbar-light.d-flex.justify-content-between {
 nav.navbar.navbar-expand-lg.navbar-light.d-flex.justify-content-between {
     /*margin-bottom: -1%;*/
     text-align: center;
+}
+.username{
+  margin-top:110px;
+
 }
 
 </style>
@@ -265,9 +269,9 @@ function filterFunction() {
               </nav>
 
               <nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-between">
-                <div>
+                <div class="username mx-4">
                   <?php if(isset($_REQUEST['uname'])){
-                    echo $_REQUEST['uname'];
+                    echo "Student Name : ".$_REQUEST['uname'];
                   }?>
                 </div>
                   <div class="collapse navbar-collapse nav2">

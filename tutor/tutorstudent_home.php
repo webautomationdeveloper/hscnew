@@ -160,7 +160,7 @@ $tutorstudentdata = $obj->tutorstudentfetch($id);
             <div id="myDropdown" class="dropdown-content">
                <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
                <?php foreach($data as $item){ ?>
-               <a href="index.php?&action=<?= $action;?>&id=<?php echo $item['users_id'];?>"><?php echo $item['Name']?><br/>( <?php echo $item['Email']?>)</a>
+               <a href="index.php?&action=<?= $action;?>&id=<?php echo $item['users_id'];?>&uname=<?php echo $item['Name'];?>"><?php echo $item['Name']?><br/>( <?php echo $item['Email']?>)</a>
                <?php } ?>
             </div>
          </div>
@@ -192,7 +192,7 @@ $tutorstudentdata = $obj->tutorstudentfetch($id);
                            <?php foreach($tutorstudentdata as $item){ ?>
                            <tr>
                               <td> 
-                                 <a href="index.php?&action=<?=$action;?>&id=<?php echo $item['users_id']?>"><?php echo $item['Name'];?></a>
+                                 <a href="index.php?&action=<?=$action;?>&id=<?php echo $item['users_id']?>&uname=<?php echo $item['Name'];?>"><?php echo $item['Name'];?></a>
                               </td>
                               <td> 
                                  <?php echo $item['Email'];?>
