@@ -248,7 +248,6 @@ $parentData = $readUser->readuser("parent");
 									                  <button type="button" class="mb-2 mr-2 btn-transition btn btn-outline-info" onclick="addStudent(${parentData[i]['users_id']})" style="cursor:pointer;">View List</button>  
 									                  </td>
                                     <td class="text-center">                                    
-                                                      <button type="button" class="btn btn-default btn-lg btn-outline-success"><i class="fa fa-eye"></i></button>
                                     <button type="button" class="btn btn-default btn-lg btn-outline-warning"  onclick="editParent(${parentData[i]['users_id']})"><i class="fa fa-edit"></i></button>
                                     <button type="button" class="btn btn-default btn-lg btn-outline-danger"  onclick="deleteParent(${parentData[i]['users_id']})"><i class="fa fa-trash"></i></button>
                                     </td> 

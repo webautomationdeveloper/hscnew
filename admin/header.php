@@ -84,12 +84,12 @@
                                 <div class="widget-content-left  ml-3 header-user-info">
                                     <div class="widget-heading">
                                         <?php
-                                            //echo "Welcome : - ".$_SESSION["admin"];
+                                            echo "Welcome : - ".$_SESSION["admin"];
                                         ?>
                                     </div>
                                     <div class="widget-subheading">
                                         <?php
-                                            //echo "Email is : - ".$_SESSION["email"];
+                                            echo "Email is : - ".$_SESSION["email"];
                                         ?>
                                     </div>
                                 </div>

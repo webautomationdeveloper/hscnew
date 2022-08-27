@@ -3,6 +3,7 @@
                       <ul class="navbar-nav">
                        <?php if(isset($_REQUEST['id'])){
                         $id = $_REQUEST['id'];
+                        $name = $_REQUEST['uname'];
                        }?>
 
                         <li class="nav-item navMenu menu1">

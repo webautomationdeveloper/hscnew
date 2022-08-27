@@ -111,7 +111,7 @@ if(isset($_POST["addinterweighting"]))
                                               <div class="form-group row">
                                                 <label for="userName" class="col-sm-2 col-form-label">Enter Level <span class="text-danger" id="errorenterlevel"></span></label>
                                                 <div class="col-sm-10">
-                                                  <input type="text" class="form-control" id="InterweightingName" name="InterweightingName" placeholder="Name">
+                                                  <input type="text" class="form-control" id="InterweightingName" name="InterweightingName" placeholder="Name" required>
                                                 </div>
                                               </div>
 

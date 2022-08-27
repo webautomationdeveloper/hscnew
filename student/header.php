@@ -85,15 +85,17 @@
       <div class="collapse navbar-collapse mt-5" id="navbarNav">
 
         <ul class="navbar-nav">
+        <?php if (isset($_SESSION['admin'])) { ?>
 
+        <?php } else { ?>
           <li class="nav-item active navMenu">
             <a class="nav-link" href="index.php?&action=home">Home</a>
           </li>
-
-          <li class="nav-item navMenu">
-            <a class="nav-link" href="index.php?&action=eco">Economics</a>
-          </li>
-
+          
+            <li class="nav-item navMenu">
+              <a class="nav-link" href="index.php?&action=eco">Economics</a>
+            </li>
+          <?php } ?>
 
 
         </ul>
