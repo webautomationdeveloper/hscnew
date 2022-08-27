@@ -187,7 +187,7 @@
                            <?php foreach($data as $item){ ?>
                            <tr>
                               <td> 
-                                 <a href="index.php?&action=<?=$action;?>&id=<?php echo $item['users_id'];?>"><?php echo $item['Name'];?></a>
+                                 <a href="index.php?&action=<?=$action;?>&id=<?php echo $item['users_id'];?>&uname=<?= $item['Name']; ?>"><?php echo $item['Name'];?></a>
                               </td>
                               <td> 
                                  <?php echo $item['Email'];?>
