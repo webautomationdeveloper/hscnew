@@ -109,6 +109,7 @@
                   <th class="text-center">Level</th>
                   <th class="text-center">Subjects</th>
                   <th class="text-center">Action</th>
+                  <th class="text-left">Student Update</th>
                 </tr>
 
 
@@ -262,15 +263,12 @@
 									<button type="button" class="mb-2 mr-2 btn-transition btn btn-outline-info" onclick="addSubject(${studentData[i]['users_id']})" style="cursor:pointer;">View List</button>  
 									</td>
 									<td class="text-center">
-                                    
-                                   
-									<button type="button" class="btn btn-default btn-lg btn-outline-warning"  onclick="edit(${studentData[i]['users_id']})"><i class="fa fa-edit"></i></button>  
-									<button type="button" class="btn btn-default btn-lg btn-outline-danger"  onclick="deleteUser(${studentData[i]['users_id']})"><i class="fa fa-trash"></i></button>
+                    <button type="button" class="btn btn-default btn-lg btn-outline-warning"  onclick="edit(${studentData[i]['users_id']})"><i class="fa fa-edit"></i></button>  
+                    <button type="button" class="btn btn-default btn-lg btn-outline-danger"  onclick="deleteUser(${studentData[i]['users_id']})"><i class="fa fa-trash"></i></button>                
+                 </td>     
+                 <td>
                   <a target="_blank" href="../student/index.php?action=essay&id=${studentData[i]['users_id']}&uname=${studentData[i]['Name']}"><button class="btn btn-success">View Data</button></a> 
-                  
-                 
-                
-                 </td>                 
+                 </td>            
 
                                     </tr>`;
       $("#studentDataTable").append(tr);

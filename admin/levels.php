@@ -57,26 +57,20 @@ $levelData = $Settings->levels();
     outline:none;
     border:0px;
 }
+#error1
+{
+  margin-left:38%;
+}
             </style>
 
                  
               <script>
-                  function Formvalidate()
-                  {
-                    var name=document.getElementById("leveluName").value;
-                    if(name.length==0)
-                    {
-                      document.getElementById("errorlevel").innerHTML="*";
-                      return false;
-                    }
-            
-                  }
                   function enterlevel()
                   {
                     var enterlevel=document.getElementById("levelName").value;
                     if(enterlevel.length==0)
                     {
-                      document.getElementById("errorenterlevel").innerHTML="*";
+                      document.getElementById("errorenterlevel").innerHTML="Enter Level";
                       return false;
                     }
                   }
@@ -101,10 +95,11 @@ $levelData = $Settings->levels();
                                   <div class="d-block text-center card-footer" id="userDetail">
                                       <form action="<?php echo $_SERVER['PHP_SELF']; ?>?&user=level" method="POST" onsubmit="return enterlevel()">
                                               <div class="form-group row">
-                                                <label for="userName" class="col-sm-2 col-form-label">Enter Level <span class="text-danger" id="errorenterlevel"></span></label>
+                                                <label for="userName" class="col-sm-2 col-form-label">Enter Level</span></label>
                                                 <div class="col-sm-10">
                                                   <input type="text" class="form-control" id="levelName" name="levelname" placeholder="Name">
                                                 </div>
+                                                <div id="error1"><span class="text-danger" id="errorenterlevel"></div>
                                               </div>
 
                                              
@@ -148,10 +143,11 @@ $levelData = $Settings->levels();
                             <form action="edituser.php" method="POST" style="margin-top:20px" onsubmit="return Formvalidate()">
                             <input type="hidden" name="levelupdateID" id="levelupdateID" value="" >
                                               <div class="form-group row">
-                                                <label for="userName" class="col-sm-2 col-form-label">Enter Level <span class="text-danger" id="errorlevel"></span></label>
+                                                <label for="userName" class="col-sm-2 col-form-label">Enter Level</label>
                                                 <div class="col-sm-10">
                                                   <input type="text" class="form-control" id="leveluName" name="levelName" placeholder="Level Name">
                                                 </div>
+                                                <div id="error"><span class="text-danger" id="errorlevel"></span></div>
                                               </div>
 
                                               <div class="form-group row">

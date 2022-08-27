@@ -15,8 +15,8 @@ if($type != "home" && $type != "parentdash"){
     case "home":
       require_once('home.php');
     break;
-    case "parentdash":
-      require_once('parentdash.php');
+    case "dash":
+      require_once('parent_dash.php');
     break;
     case "parent":
       require_once('child_info.php');

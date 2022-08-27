@@ -476,7 +476,7 @@ class InternalWeighting extends Connection
 
   public function interweightingInsert($value)
   {
-    $qry = mysqli_query($this->conn,"INSERT INTO `internal_weighting`(`value`) VALUES($value)");
+    $qry = mysqli_query($this->conn,"INSERT INTO `internal_weighting`(value) VALUES($value)");
     return $qry;
   }
 }

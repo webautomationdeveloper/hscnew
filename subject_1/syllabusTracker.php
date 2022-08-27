@@ -141,7 +141,7 @@ if (isset($_REQUEST['id'])) {
        <td>${item.syllabus_point}</td>
        <?php if (isset($_SESSION['parent'])) { ?>
        <td><input type="checkbox" onclick="return false" class="onoffswitch-checkbox" id="syllabus${item.Q_ID}_A" onclick="studyNotesProgress('syllabus${item.Q_ID}_A','${sectionVar}')"></td>
-       <input type="hidden" id="currentSecValue${sectionVar}" value="0">
+                     <input type="hidden" id="currentSecValue${sectionVar}" value="0">
        
         <td><input type="checkbox" onclick="return false" class="onoffswitch-checkbox" id="syllabus${item.Q_ID}_B" onclick="studyNotesProgress('syllabus${item.Q_ID}_A','${sectionVar}')"></td>
        
@@ -157,9 +157,8 @@ if (isset($_REQUEST['id'])) {
        </td>
        <?php } else { ?>
         <td><input type="checkbox"  class="onoffswitch-checkbox" id="syllabus${item.Q_ID}_A" onclick="studyNotesProgress('syllabus${item.Q_ID}_A','${sectionVar}')"></td>
-        <input type="hidden" id="currentSecValue${sectionVar}" value="0">
        
-       <td><input type="checkbox" class="onoffswitch-checkbox" id="syllabus${item.Q_ID}_B" onclick="studyNotesProgress('syllabus${item.Q_ID}_A','${sectionVar}')"></td>
+       <td><input type="checkbox" class="onoffswitch-checkbox" id="syllabus${item.Q_ID}_B" onclick="studyNotesProgress('syllabus${item.Q_ID}_B','${sectionVar}')"></td>
       
       <td>
 

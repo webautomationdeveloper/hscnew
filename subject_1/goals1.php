@@ -90,6 +90,13 @@ $studentgoalresult = $obj->studentfetchdatabyid($studid);
             grid-template-columns: repeat(4, 160px);
         }
     }
+    .save_button{
+        background-color:#008021b8;
+        color:white;
+        margin-left:-100px;
+        margin-top: 1rem;
+        
+    }
 </style>
 
 <body>
@@ -192,8 +199,18 @@ $studentgoalresult = $obj->studentfetchdatabyid($studid);
                 </div>
         </div>
 
-        <div class="firstvals">
 
+        <div class="firstvals">
+            <div class="row">
+                <div class="col-sm-6"></div>
+                <div class="col-sm-4"></div>
+                <div class="col-sm-2 justify-content-end ml-5">
+                <?php if (!isset($_SESSION['parent'])) { ?>
+                    <button type="button" class="btn save_button" style="background-color:#008021b8;color:white;margin-left:100px" id="submit_button">SAVE</button>
+                <?php } ?>
+                <!-- <input type="submit" class="btn btn-primary" id="update-btn" name="update-btn" value="update"> -->
+                </div>
+            </div>
             <table class="table table-striped" style="margin-top: 30px;;">
                 <thead>
                     <tr style="background-color: #008021b8; color: white;">
@@ -401,13 +418,13 @@ $studentgoalresult = $obj->studentfetchdatabyid($studid);
                     </table>
 
                 </div>
-                <div>
-                    <?php if (!isset($_SESSION['parent'])) { ?>
-                        <button type="button" class="btn btn-primary" id="submit_button" style="width:100px">SAVE</button>
-                    <?php } ?>
-                    <!-- <input type="submit" class="btn btn-primary" id="update-btn" name="update-btn" value="update"> -->
+                <!--div>
+                    <?php /*if (!isset($_SESSION['parent'])) { ?>
+                        <button type="button" class="btn " style="background-color:#008021b8;color:white;" id="submit_button" style="width:100px">SAVE</button>
+                    <?php }*/ ?>
+                     <input type="submit" class="btn btn-primary" id="update-btn" name="update-btn" value="update">
 
-                </div>
+                </div-->
 
             </div>
         </div>
@@ -425,10 +442,7 @@ $studentgoalresult = $obj->studentfetchdatabyid($studid);
             <div class="col-sm-6">
                 <!-- graph -->
                 <div id="container" style="width: 100%;">
-
                     <div id="myChart2" style="width:100%; max-width:600px; height:500px;"></div>
-
-
                 </div>
             </div>
         </div>
