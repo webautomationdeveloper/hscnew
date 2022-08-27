@@ -266,11 +266,11 @@
                                    
 									<button type="button" class="btn btn-default btn-lg btn-outline-warning"  onclick="edit(${studentData[i]['users_id']})"><i class="fa fa-edit"></i></button>  
 									<button type="button" class="btn btn-default btn-lg btn-outline-danger"  onclick="deleteUser(${studentData[i]['users_id']})"><i class="fa fa-trash"></i></button>
-                  <a href="../student/index.php?&id=${studentData[i]['users_id']}&uname=${studentData[i]['Name']}"><button class="btn btn-success">View Data</button></a> 
+                  <a target="_blank" href="../student/index.php?action=essay&id=${studentData[i]['users_id']}&uname=${studentData[i]['Name']}"><button class="btn btn-success">View Data</button></a> 
                   
                  
                 
-                                     </td>                 
+                 </td>                 
 
                                     </tr>`;
       $("#studentDataTable").append(tr);

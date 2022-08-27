@@ -1,6 +1,6 @@
 <?php
 
- $url = "http://localhost/hsc/admin/";
+ $url = "http://localhost/hscnew/admin/";
 ?>
 <style>
     .app-sidebar .scrollbar-sidebar {

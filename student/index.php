@@ -2,7 +2,7 @@
 ob_start();
 session_start(); 
 
-if(!empty($_SESSION['student'])){
+if(!empty($_SESSION['student']) || !empty($_SESSION['admin'])){
 
 include_once('header.php');
 
