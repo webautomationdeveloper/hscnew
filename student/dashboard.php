@@ -234,32 +234,34 @@ $essaytrakdrafcompl = $obj1->essaytrackerdraftcompletedata($_SESSION['UserID'],'
     // let val=$("#priorityRating").val();
     let syllabustracker = <?php echo json_encode($syllabustracker);?>;
     let syllabusResponse = <?php echo json_encode($syllabusResponse); ?>;
-  
- 
-    createPriorityTable(syllabustracker,val);
-      syllabusResponse.forEach(function(item){
-        let res= item.response.split(",")[5];
-        let id = "studyNotes"+item.Q_ID;
-        console.log(id);  
-        $("#"+id).text("res");
-      })
-    }
-
-  function  createPriorityTable(syllabustracker,val){
     $("#priorityVal").empty();
-      syllabustracker.forEach(function(item){
+
+    let priorityVAl = {};
+
+  
+    syllabusResponse.forEach(function(item){
+      let res= item.response.split(",")[5];
+      priorityVAl[item.Q_ID]=res;
+    })
+ 
+    syllabustracker.forEach(function(item){
       if(item.part.slice(0,8).trim()==val.trim()){
        
         let tr=`<tr>
                      <td>${item.syllabus_point}</td>
-                     <td id="studyNotes${item.Q_ID}"></td> 
+                     <td >
+                     <input type="text" value='${priorityVAl[item.Q_ID]??""}' id="studyNotes${item.Q_ID}" disabled>
+                     </td> 
                 </tr>`;
 
         $("#priorityVal").append(tr);
 
       }
       })
+
     }
+
+  
 
   function assignPriority(priorityTopic){
  

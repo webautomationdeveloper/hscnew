@@ -466,7 +466,10 @@
             18: "#F79D23",
             1:"#43B208" ,
             4:"#0BF861" ,
-            9 : "#F7B323"
+            9 : "#F7B323",
+            6: "#F7B323" ,
+            16: "#F79D23" ,
+            24: "#F76023" ,
         };
 
         let flagval = $("#trafficRating" + id).val();
@@ -494,6 +497,7 @@
         let backgroundColor = priorityColor[priorityWeight];
 
         if(! isNaN(priorityWeight)){
+            priorityWeight = priorityWeight!=0 ? priorityWeight:"" ;
             $("#priority" + id).val(priorityWeight);
             $("#priority" + id).css("background-color",backgroundColor);
         }
