@@ -2,10 +2,15 @@
 <?php 
 // session_start();
 
-include_once('functions.php');
+require_once('functions.php');
+//require_once('../student/functions.php');
 $obj= new Dashboard();
-
+if(isset($_REQUEST['id'])){
+ $currentUser = base64_decode($_REQUEST['id']);
+}
+else {
 $currentUser = $_SESSION['UserID'];
+}
 $goalData = $obj->readGoalData($currentUser);
 $dashBoard = $obj->dashboardData($currentUser,"4");
 
@@ -13,7 +18,11 @@ $dashBoard = $obj->dashboardData($currentUser,"4");
 $obj= new Readactions();
 
 $syllabustracker = $obj->syllabusTracker();
-$userResponse = $obj->readUserReaponse($_SESSION['UserID'],'4');
+if(isset($_REQUEST['id'])){
+$userResponse = $obj->readUserReaponse($currentUser,'4');
+}else{
+  $userResponse = $obj->readUserReaponse($_SESSION['UserID'],'4');
+}
 
 
 //essaytrackerdraftcompletedata
@@ -317,7 +326,7 @@ $essaytrakdrafcompl = $obj1->essaytrackerdraftcompletedata();
 
   function assignGoalData(goalData){
    
-   // console.log(goalData);
+    console.log(goalData);
 
     let mark1 = goalData.Mark1.split("%")[0];
     let mark2 = goalData.Mark2.split("%")[0];

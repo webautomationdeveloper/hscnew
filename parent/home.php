@@ -1,8 +1,8 @@
 <?php
+$url = "http://localhost/hscnew/";
    $obj = new ParentChildDetails();
    $studentalldata = $obj -> ParentChild($userid);
-   
-   ?>
+?>
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -134,16 +134,29 @@
                </ul>
             </div>
             
-            <div class ="mt-5">
-               <a href="../logout.php" class="btn btn-info btn-lg">
-               <span class="glyphicon glyphicon-log-out"></span> Log out
-               </a>
-            </div>
+            <div class="mt-5 d-flex justify-content-end">
+        <div class="mx-4 mt-2">
+          <?php
+          if (isset($_SESSION['tutor'])) {
+            echo $_SESSION["tutor"];
+          } else if (isset($_SESSION['parent'])) {
+            echo $_SESSION['parent'];
+          } else if (isset($_SESSION['admin'])) {
+            echo $_SESSION['admin'];
+          }
+
+
+          ?>
+        </div>
+        <a href="<?php echo $url;?>logout.php" class="btn btn-info btn-lg">
+          <span class="glyphicon glyphicon-log-out"></span> Log out
+        </a>
+      </div>
          </nav>
       </div>
       <?php 
          //  parent child details
-         $id = $_SESSION['UserID'];
+           $id = $_SESSION['UserID'];
            $obj = new ParentChildDetails();
            $data = $obj->ParentChild($id);
          // print_r($data);
@@ -155,7 +168,7 @@
             <div id="myDropdown" class="dropdown-content">
                <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
                <?php foreach($data as $item){ ?>
-               <a href="index.php?&action=<?= $action;?>&id=<?php echo $item['users_id'];?>"><?php echo $item['Name']?><br/>( <?php echo $item['Email']?>)</a>
+               <a href="index.php?&action=<?= $action;?>&id=<?php echo base64_encode($item['users_id']);?>"><?php echo $item['Name']?><br/>( <?php echo $item['Email']?>)</a>
                <?php } ?>
             </div>
          </div>
@@ -187,7 +200,7 @@
                            <?php foreach($data as $item){ ?>
                            <tr>
                               <td> 
-                                 <a href="index.php?&action=<?=$action;?>&id=<?php echo $item['users_id'];?>&uname=<?= $item['Name']; ?>"><?php echo $item['Name'];?></a>
+                                 <a href="index.php?&action=<?=$action;?>&id=<?php echo base64_encode($item['users_id']);?>&uname=<?= $item['Name']; ?>"><?php echo $item['Name'];?></a>
                               </td>
                               <td> 
                                  <?php echo $item['Email'];?>
@@ -196,7 +209,7 @@
                                 <?php echo $item['Phone'];?>
                               </td>
                               <td>
-                              <a href="index.php?&action=<?= $action;?>&id=<?php echo $item['users_id'];?>&uname=<?php echo $item["Name"]?>"><button class="btn btn-success">View</button></a>
+                              <a href="index.php?&action=<?= $action;?>&id=<?php echo base64_encode($item['users_id']);?>&uname=<?php echo $item["Name"]?>"><button class="btn btn-success">View</button></a>
                               </td>
                            </tr>
                            <?php } ?>

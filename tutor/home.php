@@ -155,7 +155,7 @@
             <div id="myDropdown" class="dropdown-content">
                <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
                <?php foreach($data as $item){ ?>
-               <a href="index.php?&action=<?= $action;?>&id=<?php echo $item['users_id'];?>"><?php echo $item['Name']?><br/>( <?php echo $item['Email']?>)</a>
+               <a href="index.php?&action=<?= $action;?>&id=<?php echo base64_encode($item['users_id']);?>"><?php echo $item['Name']?><br/>( <?php echo $item['Email']?>)</a>
                <?php } ?>
             </div>
          </div>
@@ -187,7 +187,7 @@
                            <?php foreach($data as $item){ ?>
                            <tr>
                               <td> 
-                                 <a href="index.php?&action=<?=$action;?>&id=<?php echo $item['users_id'];?>&uname=<?php echo $item['Name'];?>"><?php echo $item['Name'];?></a>
+                                 <a href="index.php?&action=<?=$action;?>&id=<?php echo base64_encode($item['users_id']);?>&uname=<?php echo $item['Name'];?>"><?php echo $item['Name'];?></a>
                               </td>
                               <td> 
                                  <?php echo $item['Email'];?>
@@ -196,7 +196,7 @@
                                 <?php echo $item['Phone'];?>
                               </td>
                               <td>
-                              <a href="index.php?&action=<?= $action;?>&id=<?php echo $item['users_id'];?>&uname=<?php echo $item["Name"]?>"><button class="btn btn-success">View</button></a>
+                              <a href="index.php?&action=<?= $action;?>&id=<?php echo base64_encode($item['users_id']);?>&uname=<?php echo $item["Name"]?>"><button class="btn btn-success">View</button></a>
                               </td>
                            </tr>
                            <?php } ?>

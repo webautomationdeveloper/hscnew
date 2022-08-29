@@ -10,7 +10,7 @@
    $syllabustracker = $obj->syllabusTracker();
    
    if (isset($_REQUEST['id'])) {
-       $id = $_REQUEST['id'];
+       $id = base64_decode($_REQUEST['id']);
        $userResponse = $obj->readUserReaponse($id, '4');
    } else {
        $userResponse = $obj->readUserReaponse($_SESSION['UserID'], '4');
@@ -73,10 +73,15 @@
                         <th scope="col">
                            SAQ Completion
                         </th>
+                        <?php if(isset($_SESSION['parent'])) { ?>
                         <th scope="col">
                             Action
                         </th>
-                        
+                        <?php } else { ?>
+                            <th scope="col">
+                            Action
+                           </th>
+                        <?php } ?>
                      </tr>
                   </thead>
                   <tbody id="essayTrackerRows">
@@ -146,7 +151,7 @@
    
       </td>
       <?php } else { ?>
-       <!--td><input type="checkbox"  class="onoffswitch-checkbox" id="syllabus${item.Q_ID}_A" onclick="studyNotesProgress('syllabus${item.Q_ID}_A','${sectionVar}')"></td-->
+       <td><input type="checkbox"  class="onoffswitch-checkbox" id="syllabus${item.Q_ID}_A" onclick="studyNotesProgress('syllabus${item.Q_ID}_A','${sectionVar}')"></td>
       
       <td><input type="checkbox" class="onoffswitch-checkbox" id="syllabus${item.Q_ID}_A" onclick="studyNotesProgress('syllabus${item.Q_ID}_A','${sectionVar}')"></td>
      

@@ -7,14 +7,15 @@ require_once('functions.php');
 
 $obj = new Readactions();
 $studyData  = $obj->studyplan();
+// start here  --    this condition used for show student record
 if (isset($_REQUEST['id'])) {
-    $id = $_REQUEST['id'];
+    $id = base64_decode($_REQUEST['id']);
     $userResponse = $obj->readUserReaponse($id, '1');
 } else {
     $userResponse = $obj->readUserReaponse($_SESSION['UserID'], '1');
 }
 
-
+// end here  --    this condition used for show student record
 ?>
 
 <div>

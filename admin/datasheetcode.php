@@ -1,6 +1,6 @@
 <?php
 
-$conn = mysqli_connect("localhost","root","redhat","hscdb");
+$conn = mysqli_connect("localhost","root","","hscdb");
 $data = stripslashes(file_get_contents("php://input"));
 
 $mydata = json_decode($data,true);

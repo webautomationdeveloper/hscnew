@@ -252,25 +252,30 @@
     let studentData = JSON.parse($("#student").val());
     console.log(studentData);
     for (let i = 0; i < studentData.length; i++) {
-
+    let userids = studentData[i]['users_id'];
+    // encoded userids into base64    // start
+    var enc = window.btoa(userids);
+    console.log(enc);
+    // encoded userids into base64    // end
       let tr = `<tr>
-                                    <td class="text-center text-muted">${i+1}</td>
-                                    <td class="text-center text-muted">${studentData[i]["Name"]}</td>
-                                    <td class="text-center">${studentData[i]['Email']}</td>
-                                    <td class="text-center">${studentData[i]['Phone']}</td>
-									<td class="text-center">${studentData[i]['level_name']}</td>
-                                    <td class="text-center">
-									<button type="button" class="mb-2 mr-2 btn-transition btn btn-outline-info" onclick="addSubject(${studentData[i]['users_id']})" style="cursor:pointer;">View List</button>  
-									</td>
-									<td class="text-center">
-                    <button type="button" class="btn btn-default btn-lg btn-outline-warning"  onclick="edit(${studentData[i]['users_id']})"><i class="fa fa-edit"></i></button>  
-                    <button type="button" class="btn btn-default btn-lg btn-outline-danger"  onclick="deleteUser(${studentData[i]['users_id']})"><i class="fa fa-trash"></i></button>                
-                 </td>     
-                 <td>
-                  <a target="_blank" href="../student/index.php?action=essay&id=${studentData[i]['users_id']}&uname=${studentData[i]['Name']}"><button class="btn btn-success">View Data</button></a> 
-                 </td>            
+                      <td class="text-center text-muted">${i+1}</td>
+                      <td class="text-center text-muted">${studentData[i]["Name"]}</td>
+                      <td class="text-center">${studentData[i]['Email']}</td>
+                      <td class="text-center">${studentData[i]['Phone']}</td>
+                      <td class="text-center">${studentData[i]['level_name']}</td>
+                                        <td class="text-center">
+                      <button type="button" class="mb-2 mr-2 btn-transition btn btn-outline-info" onclick="addSubject(${studentData[i]['users_id']})" style="cursor:pointer;">View List</button>  
+                      </td>
+                      <td class="text-center">
+                        <button type="button" class="btn btn-default btn-lg btn-outline-warning"  onclick="edit(${studentData[i]['users_id']})"><i class="fa fa-edit"></i></button>  
+                        <button type="button" class="btn btn-default btn-lg btn-outline-danger"  onclick="deleteUser(${studentData[i]['users_id']})"><i class="fa fa-trash"></i></button>                
+                    </td>     
+                    <td>
+                      
+                      <a target="_blank" href="../student/index.php?action=essay&id=${enc}&uname=${studentData[i]['Name']}"><button class="btn btn-success">View Data</button></a> 
+                    </td>            
 
-                                    </tr>`;
+                </tr>`;
       $("#studentDataTable").append(tr);
     }
 
