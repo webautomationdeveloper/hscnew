@@ -11,7 +11,8 @@ public $lastID=0;
         $qry = "SELECT users.Name,users.Email,users.Phone,users.Type FROM users where users.Email='$email'";
         $result = mysqli_query($this->conn, $qry);
         $row = mysqli_fetch_assoc($result);
-       
+
+      
         if(!is_null($row) && $row['Email'] == $email){
           return 0;
         }else{ 

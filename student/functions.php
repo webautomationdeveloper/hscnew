@@ -46,16 +46,16 @@ class Dashboard extends Connection{
     return ($val);
 }
 
-public function essaytrackerdraftcompletedata()
-{
-  $arr = array();
-  $result = mysqli_query($this->conn,"SELECT * FROM essay_tracker");
-  while($row=mysqli_fetch_assoc($result))
-  {
-    $arr[] = $row;
+public function essaytrackerdraftcompletedata($userID,$salID,$subjectID){
+    
+    $arr = array();
+    $result = mysqli_query($this->conn,"SELECT * FROM userresponse where user_ID='$userID' and SAL_ID='$salID' and subject_ID='$subjectID' ");
+    while($row=mysqli_fetch_assoc($result))
+    {
+      $arr[] = $row;
+    }
+    return $arr;
   }
-  return $arr;
-}
 
 }
 
@@ -73,6 +73,17 @@ public function essaytrackerdraftcompletedata()
           $val[]=$row;
         }
       
+        return ($val);
+      }
+
+
+      public function   getFocusArea(){
+        $val=array();
+        $qry = "SELECT `Q_ID`, `part` FROM `syllabus_tracker` GROUP by part";
+        $result = mysqli_query($this->conn, $qry );
+        while($row=mysqli_fetch_assoc($result)){
+          $val[]=$row;
+        }
         return ($val);
       }
 
