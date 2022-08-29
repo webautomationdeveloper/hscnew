@@ -12,7 +12,9 @@ public $lastID=0;
         $result = mysqli_query($this->conn, $qry);
         $row = mysqli_fetch_assoc($result);
 
-        if($row['Email'] == $email){
+
+
+        if(!is_null($row) && $row['Email'] == $email){
           return 0;
         }else{ 
           $query = "INSERT INTO users(Name,Email,Phone, Password,Type,Status) VALUES('$name', '$email', '$phone', '$password','$type','active')";

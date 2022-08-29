@@ -115,79 +115,6 @@
                     </table>
                 </div>
             </div>
-
-            <div class="card-body" style="overflow:scroll; max-height:85vh">
-               <table class="table table-striped">
-                  <thead>
-                     <tr>
-                        <th scope="col">
-                           Topic
-                        </th>
-                        <th scope="col">
-                           Part
-                        </th>
-                        <th scope="col">
-                           Syllabus Dot Point
-                        </th>
-                        <th scope="col">
-                           Study Notes Completion
-                        </th>
-                        <th scope="col">
-                           Traffic Light Rating
-                        </th>
-                        <!-- <th scope="col">
-                           Common Question Type
-                           </th> -->
-                        <th scope="col">
-                           MC
-                        </th>
-                        <th scope="col">
-                           SAQ
-                        </th>
-                        <th scope="col">
-                           Essay
-                        </th>
-                        <th scope="col">
-                           Priority Rating
-                        </th>
-                        <th scope="col">
-                           Revise
-                        </th>
-                        <th scope="col">
-                           SA Question
-                        </th>
-                        <th scope="col">
-                           SAQ Completion
-                        </th>
-                      
-                            <th scope="col">
-                            Action
-                           </th>
-                        
-                     </tr>
-                  </thead>
-                  <tbody id="essayTrackerRows">
-                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td id="studyCompletionProgresss">0%</td>
-                        <td>
-                           <p class="flagProp" style="background-color: red;" id="colorProgress3">0%</p>
-                           <p class="flagProp" style="background-color: orange;" id="colorProgress1">0%</p>
-                           <p class="flagProp" style="background-color: green;" id="colorProgress2">0%</p>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td id="saqPrgress" style="background-color: red;">0%</td>
-                     </tr>
-                  </tbody>
-               </table>
-            </div>
          </div>
       </div>
    </div>
@@ -251,37 +178,7 @@
             </select>
 
       </td>
-
-      <?php } else { ?>
-       <td><input type="checkbox"  class="onoffswitch-checkbox" id="syllabus${item.Q_ID}_A" onclick="studyNotesProgress('syllabus${item.Q_ID}_A','${sectionVar}')"></td>
-      
-      <td><input type="checkbox" class="onoffswitch-checkbox" id="syllabus${item.Q_ID}_A" onclick="studyNotesProgress('syllabus${item.Q_ID}_A','${sectionVar}')"></td>
-     
-     <td>
    
-          <select  id="trafficRating${item.Q_ID}" onclick="colorCount('trafficRating${item.Q_ID}','${item.Q_ID}')" value="">
-              <option value = "" >Choose Flag</option>
-              <option value = "red" style="background-color:red">Red</option>
-              <option value = "orange" style="background-color:orange">Orange</option>
-              <option value = "green" style="background-color:green">Green</option>
-           </select>
-   
-     </td>
-   
-   
-   <?php } ?>
-      <td>
-           <span id="mc${item.Q_ID}_val"></span>
-           <input type="hidden" id="mc${item.Q_ID}" >
-       </td>
-   
-       <td>
-           <span id="saq${item.Q_ID}_val"></span>
-           <input type="hidden" id="saq${item.Q_ID}" >
-       </td>
-   
-
-
 
     <?php } ?>
 
