@@ -28,7 +28,7 @@ $userResponse = $obj->readUserReaponse($currentUser,'4');
 //essaytrackerdraftcompletedata
 $obj1 = new Dashboard();
 $essaytrakdrafcompl = $obj1->essaytrackerdraftcompletedata();
-
+$priorityTopic = $obj-> getFocusArea();
 
 ?>
 
@@ -189,46 +189,26 @@ $essaytrakdrafcompl = $obj1->essaytrackerdraftcompletedata();
   <div class="row" style="align-items: center; margin-top: 50px;">
     <div class="col-sm-12 mb-5">
     
-              <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+              <select class="form-select form-select-lg mb-3" id="priorityRating" aria-label=".form-select-lg example" onchange="setPriority(this.value)">
                 <option selected>Select Your Topic Area >></option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+               
               </select>
           
 
             <table class="table table-striped" style="margin-top: 30px;;">
                 <thead>
                     <tr style="background-color: #008021b8; color: white;">
-                        <th scope="col">Loads high priority items in order of priority, chosen by 'Syllabus
-                            Part'</th>
+                        <th scope="col">Loads high priority items in order of priority, chosen by 'Syllabus Part'</th>
                         <th scope="col">Priority Rating</th>
 
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <th>1</th>
-                        <td>Mark</td>
-
-
-                    </tr>
-                    <tr>
-                        <th>2</th>
-                        <td>Jacob</td>
-
-
-                    </tr>
-                    <tr>
-                        <th>3</th>
-                        <td>Larry</td>
-
-
-                    </tr>
+                <tbody id="priorityVal">
+                   
                 </tbody>
             </table>
         </div>
-    </div>
+    </div>  
 </div>
 
 
@@ -388,4 +368,18 @@ essaywetingprogressdata.forEach(function (item)
 {
   $("#essaywriprog").text(item.draft_completed);
 });
+
+
+
+let priorityTopic = <?php echo json_encode($priorityTopic); ?>;
+
+assignPriority(priorityTopic);
+
+function assignPriority(priorityTopic){
+ 
+ priorityTopic.forEach(function(item){
+   if(item.Q_ID.trim()!="")
+   $("#priorityRating").append(`<option value="${item.part.slice(0,8)} ">${item.part} </option>`);
+ })
+}
   </script>

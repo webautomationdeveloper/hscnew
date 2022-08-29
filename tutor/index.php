@@ -10,9 +10,11 @@ if(!@empty($_SESSION['tutor']))
   {
     $type=$_GET['action'];
   }
-  if($type != "home" && $type != "dash"){
+  // home hader not include and other include hader
+  if($type != "home"){
     require_once('../parent/header.php');
   }
+
   switch($type)
   { 
     case "home":
@@ -22,7 +24,6 @@ if(!@empty($_SESSION['tutor']))
       require_once('tutor_dash.php');
     break;
     case "essay":
-      
       require_once('../subject_1/essayTracker.php');
     break;
     case "roadmap":

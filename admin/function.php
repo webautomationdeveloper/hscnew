@@ -12,8 +12,7 @@ public $lastID=0;
         $result = mysqli_query($this->conn, $qry);
         $row = mysqli_fetch_assoc($result);
 
-
-
+      
         if(!is_null($row) && $row['Email'] == $email){
           return 0;
         }else{ 

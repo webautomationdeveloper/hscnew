@@ -73,6 +73,19 @@ class Tutorstudent extends Connection{
         }
         return ($val);
       }
+
+
+      public function   getFocusArea(){
+        $val=array();
+        $qry = "SELECT `Q_ID`, `part` FROM `syllabus_tracker` GROUP by part";
+        $result = mysqli_query($this->conn, $qry );
+        while($row=mysqli_fetch_assoc($result)){
+          $val[]=$row;
+        }
+        return ($val);
+      }
+
+      
   }
   class GoalsAllData extends Connection
   {
