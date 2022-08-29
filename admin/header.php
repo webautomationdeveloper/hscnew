@@ -76,7 +76,9 @@ $url = "http://localhost/hscnew/";
                         <div class="widget-content p-0">
                             <div class="widget-content-wrapper">
                             <div class="widget-content-left">
+
                                     <a href="<?php echo $url;?>logout.php">
+
                                         <button class="btn btn-success">Log Out</button>
                                     </a>
                                 </div>

@@ -1,4 +1,3 @@
-
 <?php 
 // session_start();
 
@@ -11,14 +10,16 @@ $dashBoard = $obj->dashboardData($currentUser,"4");
 
 
 $obj= new Readactions();
-
 $syllabustracker = $obj->syllabusTracker();
-$userResponse = $obj->readUserReaponse($_SESSION['UserID'],'4');
+// $syllabustracker=array_shift($syllabustracker);
+$syllabusResponse = $obj->readUserReaponse($_SESSION['UserID'],'4',"9");
+
+$priorityTopic = $obj-> getFocusArea();
 
 
 //essaytrackerdraftcompletedata
 $obj1 = new Dashboard();
-$essaytrakdrafcompl = $obj1->essaytrackerdraftcompletedata();
+$essaytrakdrafcompl = $obj1->essaytrackerdraftcompletedata($_SESSION['UserID'],'2',"9");
 
 
 ?>
@@ -180,42 +181,22 @@ $essaytrakdrafcompl = $obj1->essaytrackerdraftcompletedata();
   <div class="row" style="align-items: center; margin-top: 50px;">
     <div class="col-sm-12 mb-5">
     
-              <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+              <select class="form-select form-select-lg mb-3" id="priorityRating" aria-label=".form-select-lg example" onchange="setPriority(this.value)">
                 <option selected>Select Your Topic Area >></option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+               
               </select>
           
 
             <table class="table table-striped" style="margin-top: 30px;;">
                 <thead>
                     <tr style="background-color: #008021b8; color: white;">
-                        <th scope="col">Loads high priority items in order of priority, chosen by 'Syllabus
-                            Part'</th>
+                        <th scope="col">Loads high priority items in order of priority, chosen by 'Syllabus Part'</th>
                         <th scope="col">Priority Rating</th>
 
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <th>1</th>
-                        <td>Mark</td>
-
-
-                    </tr>
-                    <tr>
-                        <th>2</th>
-                        <td>Jacob</td>
-
-
-                    </tr>
-                    <tr>
-                        <th>3</th>
-                        <td>Larry</td>
-
-
-                    </tr>
+                <tbody id="priorityVal">
+                   
                 </tbody>
             </table>
         </div>
@@ -228,40 +209,134 @@ $essaytrakdrafcompl = $obj1->essaytrackerdraftcompletedata();
   $(document).ready(function(){
     let goalData = <?php echo json_encode($goalData); ?>;
     let dashboardData = <?php echo json_encode($dashBoard); ?>;
+    let essayTrackerData = <?php echo json_encode($essaytrakdrafcompl); ?>;
+
+
+    let priorityTopic = <?php echo json_encode($priorityTopic); ?>;
+
+    assignPriority(priorityTopic);
   
-        drawGraph([0,0,0,0],0,"myChart");
-        drawGraph([0,0,0,0],0,"myChart2");
 
+    
+    
+    drawGraph([0,0,0,0],0,"myChart");
+    essayTrackerTable(essayTrackerData);
     let syllabusTracker = <?php echo json_encode($syllabustracker);?>;
+    let syllabusResponse = <?php echo json_encode($syllabusResponse); ?>;
     syllabusTrackerTable(syllabusTracker);
-
+    assigninSyllabus(syllabusResponse);
     assignGoalData(goalData);
-    assignSyllabusData(dashboardData);;
+    assignSyllabusData(dashboardData);
 
   })
 
-  function syllabusTrackerTable(syllabusTracker){
+  function setPriority(val){
+    // let val=$("#priorityRating").val();
+    let syllabustracker = <?php echo json_encode($syllabustracker);?>;
+    let syllabusResponse = <?php echo json_encode($syllabusResponse); ?>;
+  
+ 
+    createPriorityTable(syllabustracker,val);
+      syllabusResponse.forEach(function(item){
+        let res= item.response.split(",")[5];
+        let id = "studyNotes"+item.Q_ID;
+        console.log(id);  
+        $("#"+id).text("res");
+      })
+    }
 
+  function  createPriorityTable(syllabustracker,val){
+    $("#priorityVal").empty();
+      syllabustracker.forEach(function(item){
+      if(item.part.slice(0,8).trim()==val.trim()){
+       
+        let tr=`<tr>
+                     <td>${item.syllabus_point}</td>
+                     <td id="studyNotes${item.Q_ID}"></td> 
+                </tr>`;
+
+        $("#priorityVal").append(tr);
+
+      }
+      })
+    }
+
+  function assignPriority(priorityTopic){
+ 
+    priorityTopic.forEach(function(item){
+      if(item.Q_ID.trim()!="")
+      $("#priorityRating").append(`<option value="${item.part.slice(0,8)} ">${item.part} </option>`);
+    })
+  }
+
+function essayTrackerTable(essayTrackerData){
+  
+    let essayWriting=0;
+    let intialMark=[];
+    let updatedMark=[];
+
+    essayTrackerData.forEach(function(item){
+      let res = item.response.split(",");
+         if(res[0]=="true"){
+              essayWriting++;
+          }
+          intialMark.push([+item.Q_ID, +res[2]]);
+          updatedMark.push([+item.Q_ID, +res[4]]);
+          $("#essaywriprog").text(((essayWriting/11)*100).toFixed(2)+"%");
+    })
+
+
+    drawEssayGraph(intialMark,updatedMark,"myChart2");
+}
+
+
+function assigninSyllabus(syllabusResponse){
     let hrCount=[0,8,10,9,9,2,2,10,9,4,8,15,8,7,7,4,1,10,9,6,12,4,4,6]; // pointer to add horizonatal row in table
+    let studyNotes ={};
+    let saq={};
+    for(let k = 0;k<=hrCount.length;k++){
 
+      let lBound=hrCount[k]+1;
+      let uBound =hrCount[k]+hrCount[k+1];
+      
+      studyNotes[k+1]= [];
+      saq[k+1]=[];
+      
+      syllabusResponse.forEach(function(item){
+                                                          if(item.Q_ID>=lBound && item.Q_ID<=uBound){
+                                                           let val =  item.response.split(",")[0];
+                                                           let saqVal= item.response.split(",")[7];
+                                                           if(val=="true")
+                                                           studyNotes[k+1].push( val);
+                                                           saq[k+1].push(saqVal);
+                                                          } 
+                                                          })
+
+      $("#studyNotes"+(k+2)).text((studyNotes[k+1].length/hrCount[k+1]*100).toFixed(2)+"%");
+      $("#saq"+(k+2)).text((saq[k+1].length/hrCount[k+1]*100).toFixed(2)+"%");
+    }
+
+
+
+}
+
+  function syllabusTrackerTable(syllabusTracker){
+    let hrCount=[0,8,10,9,9,2,2,10,9,4,8,15,8,7,7,4,1,10,9,6,12,4,4,6]; // pointer to add horizonatal row in table
     let j=1;
     let k=0;
     let i=0;
     syllabusTracker.forEach(function(item){
-      
-      // console.log(item);
       if(hrCount[k]==i){
-
         let tr=`<tr>
-                 <td>${item.part}</td>
-                 <td id="studyNotes${j}"></td>
-                 <td id="saq${j}"></td> 
-             </tr>`;
-             $("#syllabusPart").append(tr);
-             j++;
-             k++;
-             i=0;
-      }
+                    <td>${item.part}</td>
+                    <td id="studyNotes${j}"></td>
+                    <td id="saq${j}"></td> 
+                </tr>`;
+                $("#syllabusPart").append(tr);
+                j++;
+                k++;
+                i=0;
+          }
       i++;
       })
 
@@ -278,29 +353,22 @@ $essaytrakdrafcompl = $obj1->essaytrackerdraftcompletedata();
     assignSyllabusData.forEach(function(item){
   
       let res = (item.response).split(",");
-
-      if(res[0]){
-        studyNotes++;
-      }
-
-      if(res[1]=='red'){
+        if(res[0]){
+          studyNotes++;
+        }
+        if(res[1]=='red'){
             redCount++;
         }
-
         if(res[1]=='orange'){
             orangeCount++;
         }
-
         if(res[1]=='green'){
             greenCount++;
         }
-
         if(res[1]=='green'){
             greenCount++;
         }
-
         if(res[6]==='true')saqCount++;
-
     })
 
     $("#studyNotes").text((studyNotes/165).toFixed(2)*100);
@@ -308,26 +376,16 @@ $essaytrakdrafcompl = $obj1->essaytrackerdraftcompletedata();
     $("#redColor").text((redCount/165).toFixed(2)*100);
     $("#orangeColor").text((orangeCount/165).toFixed(2)*100);
     $("#greenColor").text((greenCount/165).toFixed(2)*100);
-    
-
-
-
-
   }
 
   function assignGoalData(goalData){
-   
-   // console.log(goalData);
-
     let mark1 = goalData.Mark1.split("%")[0];
     let mark2 = goalData.Mark2.split("%")[0];
     let mark3 = goalData.Mark3.split("%")[0];
     let mark4 = goalData.Mark_hsc_trials.split("%")[0];
 
-   // console.log(mark1,mark2,mark3,mark4);
-
     drawGraph([ Math.trunc(mark1), Math.trunc(mark2), Math.trunc(mark3), Math.trunc(mark4)],99,"myChart");
-    drawGraph([ Math.trunc(mark1), Math.trunc(mark2), Math.trunc(mark3), Math.trunc(mark4)],99,"myChart2");
+    // drawGraph([ Math.trunc(mark1), Math.trunc(mark2), Math.trunc(mark3), Math.trunc(mark4)],99,"myChart2");
 
     
 
@@ -338,9 +396,59 @@ $essaytrakdrafcompl = $obj1->essaytrackerdraftcompletedata();
   }
 
 
+function drawEssayGraph(val,markLimit,id){
+
+ let dataVal = Array(['Essay','Initial Mark','Updated Mark'],
+                  ['#Essay 1', 0,0],
+                  ['#Essay 2', 0,0],
+                  ['#Essay 3', 0,0],
+                  ['#Essay 4', 0,0],
+                  ['#Essay 5', 0,0],
+                  ['#Essay 6', 0,0],
+                  ['#Essay 7', 0,0],
+                  ['#Essay 8', 0,0],
+                  ['#Essay 9', 0,0],
+                  ['#Essay 10', 0,0],
+                  ['#Essay 11', 0,0], 
+              );
+
+ let i=0;
+ val.forEach(function(item){
+  dataVal[item[0]][1]=item[1];
+  dataVal[item[0]][2]=markLimit[i][1];
+  i++;
+
+ })
+
+ dataVal=JSON.stringify(dataVal);
+        google.charts.load('current', {
+            'packages': ['corechart']
+        });
+
+        google.charts.setOnLoadCallback(drawChart);
+
+        google.charts.load('current', {
+            'packages': ['corechart']
+        });
+
+
+        function drawChart() {
+            
+          var data = google.visualization.arrayToDataTable(JSON.parse(dataVal));
+
+            var options = {
+                title: 'Goal Mark vs Actual Assessment Results'
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById(id));
+            chart.draw(data, options);
+        }
+}
+
+
 
   function drawGraph(val,markLimit,id){
-   // console.log(val,markLimit,id);
+
             google.charts.load('current', {
                 'packages': ['corechart']
             });
@@ -353,7 +461,8 @@ $essaytrakdrafcompl = $obj1->essaytrackerdraftcompletedata();
 
 
             function drawChart() {
-                var data = google.visualization.arrayToDataTable([
+                
+              var data = google.visualization.arrayToDataTable([
                     ['Contry', 'Mark','Goal'],
                     ['#1', val[0],markLimit],
                     ['#2', val[1],markLimit],
@@ -370,13 +479,4 @@ $essaytrakdrafcompl = $obj1->essaytrackerdraftcompletedata();
             }
 }
 
-
-
-//essay writing progress values add in td
-let essaywetingprogressdata = <?php echo json_encode($essaytrakdrafcompl); ?>;
-
-essaywetingprogressdata.forEach(function (item)
-{
-  $("#essaywriprog").text(item.draft_completed);
-});
   </script>
