@@ -11,7 +11,10 @@ $dashBoard = $obj->dashboardData($currentUser,"4");
 
 $obj= new Readactions();
 $syllabustracker = $obj->syllabusTracker();
+// $syllabustracker=array_shift($syllabustracker);
 $syllabusResponse = $obj->readUserReaponse($_SESSION['UserID'],'4',"9");
+
+$priorityTopic = $obj-> getFocusArea();
 
 
 //essaytrackerdraftcompletedata
@@ -178,11 +181,9 @@ $essaytrakdrafcompl = $obj1->essaytrackerdraftcompletedata($_SESSION['UserID'],'
   <div class="row" style="align-items: center; margin-top: 50px;">
     <div class="col-sm-12 mb-5">
     
-              <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+              <select class="form-select form-select-lg mb-3" id="priorityRating" aria-label=".form-select-lg example" onchange="setPriority(this.value)">
                 <option selected>Select Your Topic Area >></option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+               
               </select>
           
 
@@ -194,25 +195,8 @@ $essaytrakdrafcompl = $obj1->essaytrackerdraftcompletedata($_SESSION['UserID'],'
 
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <th>1</th>
-                        <td>Mark</td>
-
-
-                    </tr>
-                    <tr>
-                        <th>2</th>
-                        <td>Jacob</td>
-
-
-                    </tr>
-                    <tr>
-                        <th>3</th>
-                        <td>Larry</td>
-
-
-                    </tr>
+                <tbody id="priorityVal">
+                   
                 </tbody>
             </table>
         </div>
@@ -227,6 +211,12 @@ $essaytrakdrafcompl = $obj1->essaytrackerdraftcompletedata($_SESSION['UserID'],'
     let dashboardData = <?php echo json_encode($dashBoard); ?>;
     let essayTrackerData = <?php echo json_encode($essaytrakdrafcompl); ?>;
 
+
+    let priorityTopic = <?php echo json_encode($priorityTopic); ?>;
+
+    assignPriority(priorityTopic);
+  
+
     
     
     drawGraph([0,0,0,0],0,"myChart");
@@ -239,6 +229,45 @@ $essaytrakdrafcompl = $obj1->essaytrackerdraftcompletedata($_SESSION['UserID'],'
     assignSyllabusData(dashboardData);
 
   })
+
+  function setPriority(val){
+    // let val=$("#priorityRating").val();
+    let syllabustracker = <?php echo json_encode($syllabustracker);?>;
+    let syllabusResponse = <?php echo json_encode($syllabusResponse); ?>;
+  
+ 
+    createPriorityTable(syllabustracker,val);
+      syllabusResponse.forEach(function(item){
+        let res= item.response.split(",")[5];
+        let id = "studyNotes"+item.Q_ID;
+        console.log(id);  
+        $("#"+id).text("res");
+      })
+    }
+
+  function  createPriorityTable(syllabustracker,val){
+    $("#priorityVal").empty();
+      syllabustracker.forEach(function(item){
+      if(item.part.slice(0,8).trim()==val.trim()){
+       
+        let tr=`<tr>
+                     <td>${item.syllabus_point}</td>
+                     <td id="studyNotes${item.Q_ID}"></td> 
+                </tr>`;
+
+        $("#priorityVal").append(tr);
+
+      }
+      })
+    }
+
+  function assignPriority(priorityTopic){
+ 
+    priorityTopic.forEach(function(item){
+      if(item.Q_ID.trim()!="")
+      $("#priorityRating").append(`<option value="${item.part.slice(0,8)} ">${item.part} </option>`);
+    })
+  }
 
 function essayTrackerTable(essayTrackerData){
   
@@ -262,17 +291,6 @@ function essayTrackerTable(essayTrackerData){
 
 
 function assigninSyllabus(syllabusResponse){
-  let setOfVal={
-
-  }
-
-  // syllabusResponse.forEach(function(item){
-  //   console.log(item);
-  //   let hrCount=[0,8,10,9,9,2,2,10,9,4,8,15,8,7,7,4,1,10,9,6,12,4,4,6]; // pointer to add horizonatal row in table
-
-
-
-  // })
     let hrCount=[0,8,10,9,9,2,2,10,9,4,8,15,8,7,7,4,1,10,9,6,12,4,4,6]; // pointer to add horizonatal row in table
     let studyNotes ={};
     let saq={};
@@ -296,10 +314,6 @@ function assigninSyllabus(syllabusResponse){
 
       $("#studyNotes"+(k+2)).text((studyNotes[k+1].length/hrCount[k+1]*100).toFixed(2)+"%");
       $("#saq"+(k+2)).text((saq[k+1].length/hrCount[k+1]*100).toFixed(2)+"%");
-
-
-      console.log([k+1]+"   "+(studyNotes[k+1].length/hrCount[k+1]*100).toFixed(2)+"%");
-      console.log([k+1]+"   "+(saq[k+1].length/hrCount[k+1]*100).toFixed(2)+"%");
     }
 
 

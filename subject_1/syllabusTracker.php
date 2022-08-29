@@ -142,9 +142,6 @@ if (isset($_REQUEST['id'])) {
        <?php if (isset($_SESSION['parent'])) { ?>
        <td><input type="checkbox" onclick="return false" class="onoffswitch-checkbox" id="syllabus${item.Q_ID}_A" onclick="studyNotesProgress('syllabus${item.Q_ID}_A','${sectionVar}')"></td>
                      <input type="hidden" id="currentSecValue${sectionVar}" value="0">
-       
-        <td><input type="checkbox" onclick="return false" class="onoffswitch-checkbox" id="syllabus${item.Q_ID}_B" onclick="studyNotesProgress('syllabus${item.Q_ID}_A','${sectionVar}')"></td>
-       
        <td>
 
             <select style="pointer-events: none;" onclick="return false;" onkeydown="return false;" id="trafficRating${item.Q_ID}" onclick="colorCount('trafficRating${item.Q_ID}','${item.Q_ID}')" value="">
@@ -156,11 +153,11 @@ if (isset($_REQUEST['id'])) {
 
        </td>
        <?php } else { ?>
-        <td><input type="checkbox"  class="onoffswitch-checkbox" id="syllabus${item.Q_ID}_A" onclick="studyNotesProgress('syllabus${item.Q_ID}_A','${sectionVar}')"></td>
-       
-       <td><input type="checkbox" class="onoffswitch-checkbox" id="syllabus${item.Q_ID}_B" onclick="studyNotesProgress('syllabus${item.Q_ID}_B','${sectionVar}')"></td>
-      
-      <td>
+        <td>
+        <input type="checkbox"  class="onoffswitch-checkbox" id="syllabus${item.Q_ID}_A" onclick="studyNotesProgress('syllabus${item.Q_ID}_A','${sectionVar}')"></td>
+        <input type="hidden" id="currentSecValue${sectionVar}" value="0">
+     
+        <td>
 
            <select  id="trafficRating${item.Q_ID}" onclick="colorCount('trafficRating${item.Q_ID}','${item.Q_ID}')" value="">
                <option value = "" >Choose Flag</option>
@@ -253,10 +250,15 @@ if (isset($_REQUEST['id'])) {
             j++;
         })
 
+        console.log("user Response");
+        console.log(userResponse);
+
         if (userResponse.length > 0)
             userResponse.forEach(function(item) {
+
                 let res = (item.response).split(",");
 
+                console.log(res);
 
 
                 if (res[1] == 'red') {
@@ -279,16 +281,32 @@ if (isset($_REQUEST['id'])) {
 
                 if (res[6] === 'true') saqCount++;
 
+                let priorityColor = {
+                            3:"#0BF861",
+                            12: "#F7B323" ,
+                            27: "#F76023",
+                            2: "#0BF861" ,
+                            8: "#F7B323" ,
+                            18: "#F79D23",
+                            1:"#43B208" ,
+                            4:"#0BF861" ,
+                            9 : "#F7B323"
+                          };
+
+                          let bgcolor = priorityColor[(+res[5])];
+
                 $("#" + `syllabus${item.Q_ID}_A`).prop('checked', res[0] === 'true');
-                $("#" + `syllabus${item.Q_ID}_B`).prop('checked', res[1] === 'true');
-                $("#" + `trafficRating${item.Q_ID}`).val(res[2]);
-                $("#" + `mc${item.Q_ID}`).val(res[3]);
-                $("#" + `saq${item.Q_ID}`).val(res[4]);
-                $("#" + `essay${item.Q_ID}`).val(res[5]);
-                $("#" + `priority${item.Q_ID}`).val(res[6]);
-                $("#" + `saqCompletion${item.Q_ID}`).prop('checked', res[7] === 'true');
+                // $("#" + `syllabus${item.Q_ID}_B`).prop('checked', res[1] === 'true');
+                $("#" + `trafficRating${item.Q_ID}`).val(res[1]);
+                $("#" + `mc${item.Q_ID}`).val(res[2]);
+                $("#" + `saq${item.Q_ID}`).val(res[3]);
+                $("#" + `essay${item.Q_ID}`).val(res[4]);
+                $("#" + `priority${item.Q_ID}`).val(res[5]);
+                $("#" + `priority${item.Q_ID}`).css("background-color",bgcolor);
+
+                $("#" + `saqCompletion${item.Q_ID}`).prop('checked', res[6] === 'true');
                 saqCounter('saqCompletion' + item.Q_ID);
-                sectionVar = res[8];
+                sectionVar = res[7];
                 studyNotesProgress('syllabus' + item.Q_ID + '_A', sectionVar)
 
             })
@@ -298,10 +316,8 @@ if (isset($_REQUEST['id'])) {
 
 
     function studyNotesProgress(id, sectionVar) {
-        console.log(sectionVar);
-        let currentSectionValue = +$("#currentSecValue" + sectionVar).val();
-        console.log(currentSectionValue);
 
+        let currentSectionValue = +$("#currentSecValue" + sectionVar).val();
         let sectionprogress = 0;
         let hrCount = [8, 10, 9, 9, 2, 2, 10, 9, 4, 8, 15, 8, 7, 7, 4, 1, 10, 9, 6, 12, 4, 4, 6]; // pointer to add horizonatal row in table
 
@@ -370,10 +386,10 @@ if (isset($_REQUEST['id'])) {
 
 
     function saveSyllabusResponse(val) {
+        console.log(val);
 
         let id = val.split("|")[0];
         let response = $("#syllabus" + id + '_A').is(':checked') + "," +
-            $("#syllabus" + id + '_B').is(':checked') + "," +
             $("#trafficRating" + id).val() + "," +
             $("#mc" + id).val() + "," +
             $("#saq" + id).val() + "," +
@@ -382,6 +398,8 @@ if (isset($_REQUEST['id'])) {
             $("#saqCompletion" + id).is(':checked');
 
         response = val + "|" + response;
+
+        console.log(response);  
         saveresponse(response);
     }
 
@@ -405,7 +423,6 @@ if (isset($_REQUEST['id'])) {
             url: "../subject_1/studentHandler.php",
             data: res,
             success: function(retVal) {
-             
                 alert("Record saved Successfully");
             }
         });
@@ -426,6 +443,18 @@ if (isset($_REQUEST['id'])) {
             "mc": 1,
             "saq": 3,
             "essay": 5
+        };
+
+        let priorityColor = {
+            3:"#0BF861",
+            12: "#F7B323" ,
+            27: "#F76023",
+            2: "#0BF861" ,
+            8: "#F7B323" ,
+            18: "#F79D23",
+            1:"#43B208" ,
+            4:"#0BF861" ,
+            9 : "#F7B323"
         };
 
         let flagval = $("#trafficRating" + id).val();
@@ -450,6 +479,13 @@ if (isset($_REQUEST['id'])) {
             priorityWeight = priorityWeight + colorWeight * point['essay'];
         }
 
-        $("#priority" + id).val(priorityWeight);
+        let backgroundColor = priorityColor[priorityWeight];
+
+        if(! isNaN(priorityWeight)){
+            $("#priority" + id).val(priorityWeight);
+            $("#priority" + id).css("background-color",backgroundColor);
+        }
+
+        
     }
 </script>

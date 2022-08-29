@@ -77,6 +77,17 @@ public function essaytrackerdraftcompletedata($userID,$salID,$subjectID){
       }
 
 
+      public function   getFocusArea(){
+        $val=array();
+        $qry = "SELECT `Q_ID`, `part` FROM `syllabus_tracker` GROUP by part";
+        $result = mysqli_query($this->conn, $qry );
+        while($row=mysqli_fetch_assoc($result)){
+          $val[]=$row;
+        }
+        return ($val);
+      }
+
+
       public function syllabusTracker(){
         $val=array();
         $qry = "SELECT * from syllabus_tracker";

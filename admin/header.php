@@ -76,7 +76,7 @@
                         <div class="widget-content p-0">
                             <div class="widget-content-wrapper">
                             <div class="widget-content-left">
-                                    <a href="http://localhost/hsc/logout.php">
+                                    <a href="http://localhost/hscnew/logout.php">
                                         <button class="btn btn-success">Log Out</button>
                                     </a>
                                 </div>
