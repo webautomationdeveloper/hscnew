@@ -1,14 +1,24 @@
 <?php
     include_once('functions.php');
     $obj= new Dashboard();
-    $currentUser = $_SESSION['UserID'];
+    // update student record
+    if(isset($_REQUEST['id'])){
+      $currentUser = base64_decode($_REQUEST['id']);
+    }else{
+      $currentUser = $_SESSION['UserID'];
+    }
+    
     $goalData = $obj->readGoalData($currentUser);
     $dashBoard = $obj->dashboardData($currentUser,"4");
 
 
     $obj= new Readactions();  
     $syllabustracker = $obj->syllabusTracker();
-    $userResponse = $obj->readUserReaponse($_SESSION['UserID'],'4');
+    if(isset($_REQUEST['id'])){
+    $userResponse = $obj->readUserReaponse($currentUser,'4');
+    }else{
+      $userResponse = $obj->readUserReaponse($_SESSION['UserID'],'4');
+    }
 
 
     //essaytrackerdraftcompletedata
@@ -78,7 +88,7 @@
                   Goal ATAR 
                 </div>
                 <div class="card-body">
-                  <p class="card-title" id="goalAttr">991212</p>
+                  <p class="card-title" id="goalAttr">99</p>
                 </div>
               </div>
             </div>
@@ -343,9 +353,11 @@ function assignSyllabusData(assignSyllabusData){
 
 }
 
-function assignGoalData(goalData){
 
-  $("#goalAttr").text(goalData.atar);
+function assignGoalData(goalData){
+  
+  var data = $("#goalAttr").text(goalData.atar);
+  console.log(data);
   $("#goalMark").text(goalData.economic_marks);
   $("#remainingTrial").text(goalData.Mark_hsc_trials);
 

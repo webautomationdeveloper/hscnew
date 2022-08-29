@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-between nav2">
     <div class="collapse navbar-collapse mt-3" id="navbarNav">
-        <?php if (isset($_REQUEST['id']) || isset($_SESSION['admin']) || isset($_SESSION['parent'])) {
+        <?php if (isset($_REQUEST['id']) || isset($_SESSION['admin']) || isset($_SESSION['parent']))  {
             $id = $_REQUEST['id'];
            
         ?>

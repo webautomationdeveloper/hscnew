@@ -1,22 +1,28 @@
 <?php
-// session_start(); 
 
-require_once('functions.php');
+   // session_start(); 
+   
+   require_once('functions.php');
+   
+   //here we will firstmatch session and proced further for now we are proceeding for demo
+   
+   $obj = new Readactions();
+   
+   $syllabustracker = $obj->syllabusTracker();
+   
+   if (isset($_REQUEST['id'])) {
+       $id = base64_decode($_REQUEST['id']);
+       $userResponse = $obj->readUserReaponse($id, '4');
+   } else {
+       $userResponse = $obj->readUserReaponse($_SESSION['UserID'], '4');
+   }
+   
+   ?>
 
-//here we will firstmatch session and proced further for now we are proceeding for demo
 
-$obj = new Readactions();
 
-$syllabustracker = $obj->syllabusTracker();
 
-if (isset($_REQUEST['id'])) {
-    $id = $_REQUEST['id'];
-    $userResponse = $obj->readUserReaponse($id, '4');
-} else {
-    $userResponse = $obj->readUserReaponse($_SESSION['UserID'], '4');
-}
 
-?>
 <style>
     .flagProp {
         width: 100%;
@@ -109,8 +115,86 @@ if (isset($_REQUEST['id'])) {
                     </table>
                 </div>
             </div>
+
+            <div class="card-body" style="overflow:scroll; max-height:85vh">
+               <table class="table table-striped">
+                  <thead>
+                     <tr>
+                        <th scope="col">
+                           Topic
+                        </th>
+                        <th scope="col">
+                           Part
+                        </th>
+                        <th scope="col">
+                           Syllabus Dot Point
+                        </th>
+                        <th scope="col">
+                           Study Notes Completion
+                        </th>
+                        <th scope="col">
+                           Traffic Light Rating
+                        </th>
+                        <!-- <th scope="col">
+                           Common Question Type
+                           </th> -->
+                        <th scope="col">
+                           MC
+                        </th>
+                        <th scope="col">
+                           SAQ
+                        </th>
+                        <th scope="col">
+                           Essay
+                        </th>
+                        <th scope="col">
+                           Priority Rating
+                        </th>
+                        <th scope="col">
+                           Revise
+                        </th>
+                        <th scope="col">
+                           SA Question
+                        </th>
+                        <th scope="col">
+                           SAQ Completion
+                        </th>
+                      
+                            <th scope="col">
+                            Action
+                           </th>
+                        
+                     </tr>
+                  </thead>
+                  <tbody id="essayTrackerRows">
+                     <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td id="studyCompletionProgresss">0%</td>
+                        <td>
+                           <p class="flagProp" style="background-color: red;" id="colorProgress3">0%</p>
+                           <p class="flagProp" style="background-color: orange;" id="colorProgress1">0%</p>
+                           <p class="flagProp" style="background-color: green;" id="colorProgress2">0%</p>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td id="saqPrgress" style="background-color: red;">0%</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+   </div>
+
         </div>
     </div>
+
 </div>
 
 <input type="hidden" id="studyProgressCount" value=0>
@@ -168,8 +252,39 @@ if (isset($_REQUEST['id'])) {
 
       </td>
 
+      <?php } else { ?>
+       <td><input type="checkbox"  class="onoffswitch-checkbox" id="syllabus${item.Q_ID}_A" onclick="studyNotesProgress('syllabus${item.Q_ID}_A','${sectionVar}')"></td>
+      
+      <td><input type="checkbox" class="onoffswitch-checkbox" id="syllabus${item.Q_ID}_A" onclick="studyNotesProgress('syllabus${item.Q_ID}_A','${sectionVar}')"></td>
+     
+     <td>
+   
+          <select  id="trafficRating${item.Q_ID}" onclick="colorCount('trafficRating${item.Q_ID}','${item.Q_ID}')" value="">
+              <option value = "" >Choose Flag</option>
+              <option value = "red" style="background-color:red">Red</option>
+              <option value = "orange" style="background-color:orange">Orange</option>
+              <option value = "green" style="background-color:green">Green</option>
+           </select>
+   
+     </td>
+   
+   
+   <?php } ?>
+      <td>
+           <span id="mc${item.Q_ID}_val"></span>
+           <input type="hidden" id="mc${item.Q_ID}" >
+       </td>
+   
+       <td>
+           <span id="saq${item.Q_ID}_val"></span>
+           <input type="hidden" id="saq${item.Q_ID}" >
+       </td>
+   
+
+
 
     <?php } ?>
+
        <td>
             <span id="mc${item.Q_ID}_val"></span>
             <input type="hidden" id="mc${item.Q_ID}" >

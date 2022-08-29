@@ -6,12 +6,14 @@ require_once('functions.php');
 
 $obj= new Readactions();
 $roadmap  = $obj->roadMapTracker();
+// start here  --    this condition used for show student record
 if(isset($_REQUEST['id'])){
-    $id = $_REQUEST['id'];
+    $id = base64_decode($_REQUEST['id']);
     $roadmapResponse = $obj->readUserReaponse($id,'3');
   }else{
      $roadmapResponse = $obj->readUserReaponse($_SESSION['UserID'],'3');
   }
+// end here --    this condition used for show student record
 ?>
 
 

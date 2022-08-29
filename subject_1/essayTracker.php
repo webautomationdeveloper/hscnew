@@ -10,7 +10,7 @@ require_once('functions.php');
 $obj= new Readactions();
 $essyData  = $obj->essayTracker();
 if(isset($_REQUEST['id'])){
-  $id = $_REQUEST['id'];
+  $id = base64_decode($_REQUEST['id']);
   $userResponse = $obj->readUserReaponse($id,'2');
 }else{
 $userResponse = $obj->readUserReaponse($_SESSION['UserID'],'2');
@@ -58,6 +58,13 @@ $userResponse = $obj->readUserReaponse($_SESSION['UserID'],'2');
                             <th scope="col">
                               Updated Marks
                             </th>
+                            <?php if(isset($_SESSION['parent'])){ ?>
+                            
+                            <?php } else { ?>
+                              <th scope="col">
+                              Action
+                            </th>
+                            <?php } ?>
 
                         </tr>
                     </thead>
@@ -167,7 +174,7 @@ function saveEssayResponse(val){
 function saveresponse(resp){
 
   // let userID = <?php //echo json_encode($_SESSION['UserID']);?>;
-  <?php if(isset($_REQUEST['id'])){ $id= $_REQUEST['id'];?>
+  <?php if(isset($_REQUEST['id'])){ $id= base64_decode($_REQUEST['id']);?>
   let userID = <?php echo json_encode($id);?>;
   <?php } else { ?>
     let userID = <?php echo json_encode($_SESSION['UserID']);?>;

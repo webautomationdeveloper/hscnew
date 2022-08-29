@@ -6,7 +6,7 @@ $goalsdata = $obj->goalsfetchdata();
 $internalWeighting = $obj->internalweightingfetch();
 
 if (isset($_REQUEST['id'])) {
-    $studid = $_REQUEST['id'];
+    $studid = base64_decode($_REQUEST['id']);
 } else {
     $studid = $_SESSION['UserID'];
 }
@@ -97,6 +97,7 @@ $studentgoalresult = $obj->studentfetchdatabyid($studid);
         margin-top: 1rem;
         
     }
+   
 </style>
 
 <body>

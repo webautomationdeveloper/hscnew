@@ -2,7 +2,7 @@
                   <div class="collapse navbar-collapse nav2">
                       <ul class="navbar-nav">
                        <?php if(isset($_REQUEST['id'])){
-                        $id = $_REQUEST['id'];
+                        $id = base64_decode($_REQUEST['id']);
                         $name = $_REQUEST['uname'];
                        }?>
 
@@ -15,19 +15,19 @@
                         </li>
 
                         <li class="nav-item navMenu menu1">
-                            <a class="nav-link" href="http://localhost/hsc/parenttutor/index.php?&action=roadmap&id=<?php echo $id;?>">Roadmap</a>
+                            <a class="nav-link" href="index.php?&action=roadmap&id=<?php echo $id;?>">Roadmap</a>
                         </li>
 
                         <li class="nav-item navMenu menu1">
-                            <a class="nav-link" href="http://localhost/hsc/parenttutor/index.php?&action=syllabus&id=<?php echo $id;?>">Syllabus Tracker</a>
+                            <a class="nav-link" href="index.php?&action=syllabus&id=<?php echo $id;?>">Syllabus Tracker</a>
                         </li>
 
                         <li class="nav-item navMenu menu1">
-                            <a class="nav-link" href="http://localhost/hsc/parenttutor/index.php?&action=study&id=<?php echo $id;?>">Study Plan</a>
+                            <a class="nav-link" href="index.php?&action=study&id=<?php echo $id;?>">Study Plan</a>
                         </li>
 
                         <li class="nav-item navMenu menu1">
-                            <a class="nav-link" href="http://localhost/hsc/parenttutor/index.php?&action=goals&id=<?php echo $id;?>">Goals</a>
+                            <a class="nav-link" href="index.php?&action=goals&id=<?php echo $id;?>">Goals</a>
                         </li>
                         
                       </ul>
