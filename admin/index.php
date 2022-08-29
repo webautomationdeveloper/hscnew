@@ -25,12 +25,19 @@ if(!empty($_SESSION['admin'])){
       if($retval==0){
         echo '<script>alert("E-mail ID already exists");</script>';
         $type = 'addnew';    
+
       }
+   
+      
+
+
+   
       if($retval==1){
         echo '<script>alert("Record added Successfully");</script>';
         header("location:http://localhost/hscnew/admin/index.php?&user=".$type) ;   
 
       }
+
 
     }
   

@@ -70,7 +70,6 @@
   }
 </style>
 
-
 <script>
   function Formvalidate() {
     var phone = document.getElementById("studentPhone").value;

@@ -30,7 +30,15 @@ class Tutorstudent extends Connection{
         return ($val);
       }
 
-
+      public function   getFocusArea(){
+        $val=array();
+        $qry = "SELECT `Q_ID`, `part` FROM `syllabus_tracker` GROUP by part";
+        $result = mysqli_query($this->conn, $qry );
+        while($row=mysqli_fetch_assoc($result)){
+          $val[]=$row;
+        }
+        return ($val);
+      }
       public function syllabusTracker(){
         $val=array();
         $qry = "SELECT * from syllabus_tracker";
@@ -199,27 +207,27 @@ class Tutorstudent extends Connection{
   class Dashboard extends Connection{
   
     public function readGoalData($userID){
-          $qry = "SELECT * from goal_assessment where studentID=$userID";
-          $result = mysqli_query($this->conn, $qry );
-          $row=mysqli_fetch_assoc($result);
-          return ($row);
-    }
-  
-    public function dashboardData($userID,$sal_ID){
-      $val=array();
-      $qry = "SELECT * from userresponse where user_ID=$userID and SAL_ID=$sal_ID" ;
+      $qry = "SELECT * from goal_assessment where studentID=$userID";
       $result = mysqli_query($this->conn, $qry );
-      while($row=mysqli_fetch_assoc($result)){
-        $val[]=$row;
-      }
-    
-      return ($val);
-  }
+      $row=mysqli_fetch_assoc($result);
+      return ($row);
+}
   
-  public function essaytrackerdraftcompletedata()
-  {
+public function dashboardData($userID,$sal_ID){
+  $val=array();
+  $qry = "SELECT * from userresponse where user_ID=$userID and SAL_ID=$sal_ID" ;
+  $result = mysqli_query($this->conn, $qry );
+  while($row=mysqli_fetch_assoc($result)){
+    $val[]=$row;
+  }
+
+  return ($val);
+}
+  
+  public function essaytrackerdraftcompletedata($userID,$salID,$subjectID){
+    
     $arr = array();
-    $result = mysqli_query($this->conn,"SELECT * FROM essay_tracker");
+    $result = mysqli_query($this->conn,"SELECT * FROM userresponse where user_ID='$userID' and SAL_ID='$salID' and subject_ID='$subjectID' ");
     while($row=mysqli_fetch_assoc($result))
     {
       $arr[] = $row;
