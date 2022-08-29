@@ -10,7 +10,11 @@ if (isset($_REQUEST['id'])) {
 } else {
     $studid = $_SESSION['UserID'];
 }
+
+
+
 $studentgoalresult = $obj->studentfetchdatabyid($studid);
+
 
 ?>
 
@@ -626,12 +630,12 @@ $studentgoalresult = $obj->studentfetchdatabyid($studid);
             let weighted4 = isNaN(weightedmark4 / overall4) ? 0 : weightedmark4 / overall4;
 
 
-            $("#weighted1").text(weighted1 * 100 + "%");
-            $("#weighted2").text(weighted2 * 100 + "%");
-            $("#weighted3").text(weighted3 * 100 + "%");
-            $("#weighted4").text(weighted4 * 100 + "%");
+            $("#weighted1").text((weighted1 * 100).toFixed(2) + "%");
+            $("#weighted2").text((weighted2 * 100).toFixed(2) + "%");
+            $("#weighted3").text((weighted3 * 100).toFixed(2) + "%");
+            $("#weighted4").text((weighted4 * 100).toFixed(2) + "%");
             let totalWeightedAvg = (weightedAvg / (((overall1 + overall2 + overall3 + overall4))).toFixed(2) * 100);
-            $("#weightedtotalall").text(totalWeightedAvg + "%");
+            $("#weightedtotalall").text(totalWeightedAvg.toFixed(2) + "%");
 
             $("#rimleft1").text(overall4);
             $("#hscmarksleftid").text(50 + overall4);

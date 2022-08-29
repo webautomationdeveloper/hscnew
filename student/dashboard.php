@@ -317,9 +317,6 @@ function assigninSyllabus(syllabusResponse){
       $("#studyNotes"+(k+2)).text((studyNotes[k+1].length/hrCount[k+1]*100).toFixed(2)+"%");
       $("#saq"+(k+2)).text((saq[k+1].length/hrCount[k+1]*100).toFixed(2)+"%");
     }
-
-
-
 }
 
   function syllabusTrackerTable(syllabusTracker){

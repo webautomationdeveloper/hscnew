@@ -60,7 +60,6 @@ class Tutorstudent extends Connection{
         while($row=mysqli_fetch_assoc($result)){
           $val[]=$row;
         }
-      
         return ($val);
       }
 
@@ -228,16 +227,17 @@ class Tutorstudent extends Connection{
       return ($val);
   }
   
-  public function essaytrackerdraftcompletedata()
-  {
+  public function essaytrackerdraftcompletedata($userID,$salID,$subjectID){
+    
     $arr = array();
-    $result = mysqli_query($this->conn,"SELECT * FROM essay_tracker");
+    $result = mysqli_query($this->conn,"SELECT * FROM userresponse where user_ID='$userID' and SAL_ID='$salID' and subject_ID='$subjectID' ");
     while($row=mysqli_fetch_assoc($result))
     {
       $arr[] = $row;
     }
     return $arr;
   }
+
   
   }
 
