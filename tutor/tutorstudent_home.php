@@ -1,5 +1,5 @@
 <?php
-$url = "http://localhost/hscnew/";
+
 $id = $_SESSION['UserID'];
 require_once('functions.php');
 $obj = new TutotStudent();
@@ -153,7 +153,7 @@ $tutorstudentdata = $obj->tutorstudentfetch($id);
 
                ?>
             </div>
-        <a href="<?php echo $url;?>logout.php" class="btn btn-info btn-lg">
+        <a href="<?php echo $localHostUrl;?>logout.php" class="btn btn-info btn-lg">
           <span class="glyphicon glyphicon-log-out"></span> Log out
         </a>
       </div>

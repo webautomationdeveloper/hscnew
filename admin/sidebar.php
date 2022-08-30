@@ -1,7 +1,4 @@
-<?php
 
- $url = "http://localhost/hscnew/admin/";
-?>
 <style>
 .app-sidebar .scrollbar-sidebar {
     overflow: scroll !important;
@@ -13,33 +10,33 @@
                             <ul class="vertical-nav-menu">
                                 <li class="app-sidebar__heading">Dashboards</li>
                                 <li>
-                                    <a href="<?php echo $url ?>index.php" class="mm-active">
+                                    <a href="<?php echo $admin_url ?>index.php" class="mm-active">
                                         <i class="metismenu-icon pe-7s-rocket"></i>
                                         Overall
                                     </a>
                                 </li>
                                 <li class="app-sidebar__heading">Users</li>
                                 <li>
-                                    <a href="<?php echo $url ?>index.php?&user=addnew">
+                                    <a href="<?php echo $admin_url ?>index.php?&user=addnew">
                                         <i class="metismenu-icon pe-7s-add-user">
                                         </i>Add New
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo $url ?>index.php?&user=student" >
+                                    <a href="<?php echo $admin_url ?>index.php?&user=student" >
                     
                                         <i class="metismenu-icon pe-7s-users">
                                         </i>Student
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo $url ?>index.php?&user=parent">
+                                    <a href="<?php echo $admin_url ?>index.php?&user=parent">
                                         <i class="metismenu-icon pe-7s-user">
                                         </i>Parents
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo $url ?>index.php?&user=tutor">
+                                    <a href="<?php echo $admin_url ?>index.php?&user=tutor">
                                         <i class="metismenu-icon pe-7s-user">
                                         </i>Tutor
                                     </a>
@@ -67,27 +64,27 @@
                             <ul class="vertical-nav-menu">
                                 <li class="app-sidebar__heading">Setting</li>
                                 <li>
-                                    <a href="<?php echo $url ?>index.php?&user=level" class="mm-active">
+                                    <a href="<?php echo $admin_url ?>index.php?&user=level" class="mm-active">
                                         <i class="metismenu-icon pe-7s-settings"></i>
                                         Levels
                                     </a>
                                 </li>
 								 <li>
-                                    <a href="<?php echo $url ?>index.php?&user=subject" class="mm-active">
+                                    <a href="<?php echo $admin_url ?>index.php?&user=subject" class="mm-active">
                                         <i class="metismenu-icon pe-7s-settings"></i>
                                         Subjects
                                     </a>
                                 </li>
 
                                 <li>
-                                    <a href="<?php echo $url ?>index.php?&user=goaldata" class="mm-active">
+                                    <a href="<?php echo $admin_url ?>index.php?&user=goaldata" class="mm-active">
                                         <i class="metismenu-icon pe-7s-settings"></i>
                                         Data Sheet
                                     </a>
                                 </li>
 
                                 <li>
-                                    <a href="<?php echo $url ?>index.php?&user=interweighting" class="mm-active">
+                                    <a href="<?php echo $admin_url ?>index.php?&user=interweighting" class="mm-active">
                                         <i class="metismenu-icon pe-7s-settings"></i>
                                         Internal Weighting
                                     </a>

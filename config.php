@@ -1,5 +1,10 @@
 <?php
 
+$serverURL = 'https://quickdataautomation.com/test-env/hsc/';
+$localHostUrl = 'http://localhost/hscnew/';
+$URL = "index.php?&user=";
+$admin_url = "http://localhost/hscnew/admin/";
+
 class Connection{
     public $host = "localhost";
     public $user = "root";
@@ -11,5 +16,7 @@ class Connection{
       $this->conn = mysqli_connect($this->host, $this->user, $this->password, $this->db_name);
     }
   }
+
+
 
 ?>

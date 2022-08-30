@@ -1,5 +1,5 @@
 <?php
-$url = "http://localhost/hscnew/";
+
 if (isset($_REQUEST['id'])) {
   $id = base64_decode($_REQUEST['id']);
 }
@@ -276,7 +276,7 @@ if (isset($_REQUEST['id'])) {
 
           ?>
         </div>
-        <a href="<?php echo $url;?>logout.php" class="btn btn-info btn-lg">
+        <a href="<?php echo $localHostUrl;?>logout.php" class="btn btn-info btn-lg">
           <span class="glyphicon glyphicon-log-out"></span> Log out
         </a>
       </div>

@@ -1,5 +1,4 @@
 <?php
-$url = "http://localhost/hscnew/";
    $obj = new ParentChildDetails();
    $studentalldata = $obj -> ParentChild($userid);
 ?>
@@ -148,7 +147,7 @@ $url = "http://localhost/hscnew/";
 
           ?>
         </div>
-        <a href="<?php echo $url;?>logout.php" class="btn btn-info btn-lg">
+        <a href="<?php echo $localHostUrl;?>logout.php" class="btn btn-info btn-lg">
           <span class="glyphicon glyphicon-log-out"></span> Log out
         </a>
       </div>

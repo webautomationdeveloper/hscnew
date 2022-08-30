@@ -2,9 +2,6 @@
 
 include('admin/function.php');
 
-$serverURL = 'https://quickdataautomation.com/test-env/hsc/';
-$localHostUrl = 'http://localhost/hscnew/';
-
  $_SESSION["userID"];
 if(!empty($_SESSION["userID"])){
   $select = new Select();

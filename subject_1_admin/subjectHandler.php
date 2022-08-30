@@ -1,7 +1,5 @@
 <?php
 require_once('../admin/function.php');
-$URL = "https://quickdataautomation.com/test-env/hsc/";
-// $URL = "http://localhost/hscnew/";
 if(isset($_POST['value'])){
     $obj = new SubjectHandler();
     echo $obj->updateStudyPlan($_POST['value'],$_POST['actionID'],$_POST['type']);
@@ -12,7 +10,7 @@ if(isset($_POST['updateRoadmapRow'])){
     $val = $_POST['roadmapWeek']."|".$_POST['roadmapAction']."|".$_POST['roadmapAbout']."|".$_POST['roadmapTime'];
     $obj = new SubjectHandler();
     if($obj->updateStudyPlan($val,$_POST['roadmapRowID'],'roadmap')){
-    header("Location:".$URL."admin/studyHandler/ecoSubjectDesc.php?&form=roadmap");
+    header("Location:".$localHostUrl."admin/studyHandler/ecoSubjectDesc.php?&form=roadmap");
     }
 }
 

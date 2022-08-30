@@ -7,8 +7,7 @@ if(!empty($_SESSION["student"])||!empty($_SESSION["admin"])||!empty($_SESSION["p
   header("Location: index.php");
 }
 
-$serverURL = 'https://quickdataautomation.com/test-env/hsc/';
-$localHostUrl = 'http://localhost/hscnew/';
+
 if(isset($_POST["btn-login"])){
 
   $login = new Login();

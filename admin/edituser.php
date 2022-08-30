@@ -2,7 +2,7 @@
 ob_start();
 require('function.php');
 // $URL = "https://quickdataautomation.com/test-env/hsc/main.php?&user=";
-$URL = "index.php?&user=";
+
 
 
 if(isset($_POST["updatestudent"])){

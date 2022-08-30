@@ -2,7 +2,7 @@
 
 <?php 
 //session_start();
-$url = "http://localhost/hscnew/";
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -77,7 +77,7 @@ $url = "http://localhost/hscnew/";
                             <div class="widget-content-wrapper">
                             <div class="widget-content-left">
 
-                                    <a href="<?php echo $url;?>logout.php">
+                                    <a href="<?php echo $localHostUrl;?>logout.php">
 
                                         <button class="btn btn-success">Log Out</button>
                                     </a>
